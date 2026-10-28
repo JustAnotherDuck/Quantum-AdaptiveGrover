@@ -1,0 +1,8 @@
+key_size,rounds,qubits_total,depth,two_qubit_gates,total_gates,is_extrapolated
+4,1,9,422,226,583,False
+8,2,17,855,860,2238,False
+12,3,25,1304,1890,4943,False
+16,4,33,1757,3424,8806,False
+32,8,65,3008,12672,38016,True
+64,16,129,6016,50688,152064,True
+128,32,257,12032,202752,608256,True

@@ -1,0 +1,79 @@
+# Verified Literature Quantum Resource Estimates Database
+# Each record contains verified cryptographic and quantum resource estimates from primary literature.
+# Unverified claims are flagged as verified: false and excluded from default estimates.
+
+- cipher: "AES-128"
+  key_size: 128
+  block_size: 128
+  paper_title: "Applying Grover's Algorithm to AES: Quantum Resource Estimates"
+  authors:
+    - "Markus Grassl"
+    - "Brandon Langenberg"
+    - "Martin Roetteler"
+    - "Rainer Steinwandt"
+  year: 2016
+  venue: "Post-Quantum Cryptography (PQCrypto 2016)"
+  doi: "10.1007/978-3-319-29360-8_3"
+  logical_qubits: 2953
+  t_depth: 3740
+  total_t_gates_per_oracle: 1190400
+  grover_iterations: "1.18e19"  # ~pi/4 * 2^64
+  verified: true
+  notes: "Pioneering concrete Clifford+T resource estimation for full AES-128 exhaustive key search."
+
+- cipher: "AES-192"
+  key_size: 192
+  block_size: 128
+  paper_title: "Applying Grover's Algorithm to AES: Quantum Resource Estimates"
+  authors:
+    - "Markus Grassl"
+    - "Brandon Langenberg"
+    - "Martin Roetteler"
+    - "Rainer Steinwandt"
+  year: 2016
+  venue: "Post-Quantum Cryptography (PQCrypto 2016)"
+  doi: "10.1007/978-3-319-29360-8_3"
+  logical_qubits: 4449
+  t_depth: 4488
+  total_t_gates_per_oracle: 1428480
+  grover_iterations: "1.89e28"  # ~pi/4 * 2^96
+  verified: true
+  notes: "Full key expansion and Itoh-Tsujii S-box inversion."
+
+- cipher: "AES-256"
+  key_size: 256
+  block_size: 128
+  paper_title: "Applying Grover's Algorithm to AES: Quantum Resource Estimates"
+  authors:
+    - "Markus Grassl"
+    - "Brandon Langenberg"
+    - "Martin Roetteler"
+    - "Rainer Steinwandt"
+  year: 2016
+  venue: "Post-Quantum Cryptography (PQCrypto 2016)"
+  doi: "10.1007/978-3-319-29360-8_3"
+  logical_qubits: 6681
+  t_depth: 5236
+  total_t_gates_per_oracle: 1666560
+  grover_iterations: "2.42e38"  # ~pi/4 * 2^128
+  verified: true
+  notes: "Resource estimate for 14-round AES-256."
+
+- cipher: "AES-128"
+  key_size: 128
+  block_size: 128
+  paper_title: "Implementing Grover oracles for quantum key search on AES and LowMC"
+  authors:
+    - "Samuel Jaques"
+    - "Michael Naehrig"
+    - "Martin Roetteler"
+    - "Fernando Virdia"
+  year: 2020
+  venue: "EUROCRYPT 2020"
+  doi: "10.1007/978-3-030-45724-2_10"
+  logical_qubits: 1785
+  t_depth: 120
+  total_t_gates_per_oracle: 54400
+  grover_iterations: "1.18e19"
+  verified: true
+  notes: "Depth-optimized parallelized implementation implemented in Q#."

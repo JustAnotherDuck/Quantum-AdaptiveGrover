@@ -1,0 +1,10 @@
+key_size,strategy,success_rate,success_ci_low,success_ci_high,mean_total_cost,cost_ci_low,cost_ci_high,mean_oracle_calls,mean_depth,speedup_over_classical
+3,Adaptive Hybrid (Proposed),1.0,1.0,1.0,65.0,65.0,65.0,64.0,24.0,0.06153846153846154
+3,Classical Brute Force,1.0,1.0,1.0,8.0,8.0,8.0,0.0,0.0,0.5
+3,Standard Grover,1.0,1.0,1.0,257.0,257.0,257.0,256.0,46.0,0.01556420233463035
+4,Adaptive Hybrid (Proposed),1.0,1.0,1.0,65.0,65.0,65.0,64.0,54.0,0.12307692307692308
+4,Classical Brute Force,1.0,1.0,1.0,16.0,16.0,16.0,0.0,0.0,0.5
+4,Standard Grover,1.0,1.0,1.0,385.0,385.0,385.0,384.0,158.0,0.02077922077922078
+5,Adaptive Hybrid (Proposed),1.0,1.0,1.0,65.0,65.0,65.0,64.0,130.0,0.24615384615384617
+5,Classical Brute Force,1.0,1.0,1.0,32.0,32.0,32.0,0.0,0.0,0.5
+5,Standard Grover,1.0,1.0,1.0,513.0,513.0,513.0,512.0,514.0,0.031189083820662766
