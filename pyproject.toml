@@ -1,0 +1,88 @@
+[build-system]
+requires = ["hatchling", "editables"]
+build-backend = "hatchling.build"
+
+[project]
+name = "agqca"
+version = "0.1.0"
+description = "Adaptive and Noise-Aware Key Search for Practical Quantum Cryptanalysis"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+    { name = "AdaptiveGrover-QCA Research Team" }
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Security :: Cryptography",
+]
+dependencies = [
+    "qiskit>=1.1.0",
+    "qiskit-aer>=0.14.2",
+    "qiskit-ibm-runtime>=0.23.0",
+    "numpy>=1.26.0",
+    "scipy>=1.12.0",
+    "pandas>=2.2.0",
+    "matplotlib>=3.8.0",
+    "typer>=0.12.0",
+    "streamlit>=1.35.0",
+    "pydantic>=2.7.0",
+    "pyyaml>=6.0.1",
+    "jinja2>=3.1.4",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=5.0.0",
+    "hypothesis>=6.100.0",
+    "ruff>=0.4.0",
+    "mypy>=1.10.0",
+    "types-pyyaml>=6.0.12",
+]
+
+[project.scripts]
+agqca = "agqca.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agqca"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "B"]
+ignore = ["E501", "B008"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-v --strict-markers"
+
+[tool.coverage.run]
+source = ["src/agqca"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 85
+omit = [
+    "src/agqca/cli.py",
+    "demo/*",
+]
+
+[tool.mypy]
+python_version = "3.11"
+packages = ["agqca"]
+mypy_path = "src"
+strict = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+ignore_missing_imports = true

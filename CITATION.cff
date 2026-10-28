@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software in academic research, please cite it as below."
+authors:
+  - family-names: "Quantum Cryptanalysis Research Team"
+    given-names: "AdaptiveGrover-QCA"
+title: "AdaptiveGrover-QCA: Adaptive and Noise-Aware Key Search for Practical Quantum Cryptanalysis"
+version: 0.1.0
+date-released: 2026-10-29
+url: "https://github.com/adaptive-grover-qca/adaptive-grover-qca"
+license: MIT
