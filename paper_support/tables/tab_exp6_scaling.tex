@@ -1,0 +1,18 @@
+\begin{table}[htbp]
+\centering
+\caption{Reversible SPN Circuit Resource Scaling (Mode B). Asterisk (*) indicates extrapolated values.}
+\label{tab:exp6_scaling}
+\begin{tabular}{rccccc}
+\hline
+\textbf{Key ($n$)} & \textbf{Rounds} & \textbf{Total Qubits} & \textbf{Transpiled Depth} & \textbf{2Q Gates (CX)} & \textbf{Status} \\
+\hline
+4 & 1 & 9 & 422 & 226 & Measured \\
+8 & 2 & 17 & 855 & 860 & Measured \\
+12 & 3 & 25 & 1304 & 1890 & Measured \\
+16 & 4 & 33 & 1757 & 3424 & Measured \\
+32 & 8 & 65 & 3008 & 12672 & Extrapolated* \\
+64 & 16 & 129 & 6016 & 50688 & Extrapolated* \\
+128 & 32 & 257 & 12032 & 202752 & Extrapolated* \\
+\hline
+\end{tabular}
+\end{table}

@@ -1,0 +1,1 @@
+**Figure 1: Scalability Baseline vs Key Size.** Total effective cost comparison between classical brute-force, standard fixed Grover, and the proposed adaptive hybrid across key sizes n in [3, 5] bits under 2% depolarizing gate noise. Shaded bands represent 95% bootstrap confidence intervals computed over independent seeds. Source: `exp1_scalability_agg.csv`.

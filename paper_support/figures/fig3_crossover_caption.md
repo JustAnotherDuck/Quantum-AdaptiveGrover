@@ -1,0 +1,1 @@
+**Figure 3: Crossover Noise Boundary.** Identification of the crossover error rate where shallow-circuit restarts overtake deep standard Grover. Above ~5-6% noise, accumulated decoherence in deep circuits causes single-shot Grover failure, whereas shallow circuits preserve fidelity. Source: `exp3_crossover_agg.csv`.

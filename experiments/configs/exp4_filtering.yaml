@@ -1,0 +1,17 @@
+# Experiment 4 Configuration: Search Space Reduction Efficiency
+experiment_name: "exp4_filtering"
+description: "Effective gain vs reduction ratio including classical filtering overhead"
+key_size: 5
+constraint_profiles:
+  - name: "None (Full Space)"
+    prefix_bits: 0
+  - name: "1-Bit Prefix (2x Reduction)"
+    prefix_bits: 1
+  - name: "2-Bit Prefix (4x Reduction)"
+    prefix_bits: 2
+  - name: "3-Bit Prefix (8x Reduction)"
+    prefix_bits: 3
+noise_level: 0.02
+shots: 128
+seeds_small: 15
+seeds_full: 35

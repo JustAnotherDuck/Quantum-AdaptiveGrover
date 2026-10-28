@@ -1,0 +1,20 @@
+\begin{table}[htbp]
+\centering
+\caption{Scalability Baseline vs Key Size (Exp 1: Noise = 2\%). Values report mean [95\% CI].}
+\label{tab:exp1_scalability}
+\begin{tabular}{llrccc}
+\hline
+\textbf{Key ($n$)} & \textbf{Strategy} & \textbf{Success Rate} & \textbf{Total Cost} & \textbf{Depth} & \textbf{Speedup} \\
+\hline
+3 & Adaptive Hybrid (Proposed) & 1.00 [1.00, 1.00] & 65.0 & 24 & 0.06\times \\
+3 & Classical Brute Force & 1.00 [1.00, 1.00] & 8.0 & 0 & 0.50\times \\
+3 & Standard Grover & 1.00 [1.00, 1.00] & 257.0 & 46 & 0.02\times \\
+4 & Adaptive Hybrid (Proposed) & 1.00 [1.00, 1.00] & 65.0 & 54 & 0.12\times \\
+4 & Classical Brute Force & 1.00 [1.00, 1.00] & 16.0 & 0 & 0.50\times \\
+4 & Standard Grover & 1.00 [1.00, 1.00] & 385.0 & 158 & 0.02\times \\
+5 & Adaptive Hybrid (Proposed) & 1.00 [1.00, 1.00] & 65.0 & 130 & 0.25\times \\
+5 & Classical Brute Force & 1.00 [1.00, 1.00] & 32.0 & 0 & 0.50\times \\
+5 & Standard Grover & 1.00 [1.00, 1.00] & 513.0 & 514 & 0.03\times \\
+\hline
+\end{tabular}
+\end{table}

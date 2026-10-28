@@ -1,0 +1,5 @@
+profile,mean_filter_cost,mean_total_cost,cost_ci_low,cost_ci_high,effective_speedup
+1-Bit Prefix (2x Reduction),32.0,97.0,97.0,97.0,0.16494845360824742
+2-Bit Prefix (4x Reduction),32.0,97.0,97.0,97.0,0.16494845360824742
+3-Bit Prefix (8x Reduction),32.0,97.0,97.0,97.0,0.16494845360824742
+None (Full Space),0.0,65.0,65.0,65.0,0.24615384615384617

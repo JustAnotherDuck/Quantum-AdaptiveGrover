@@ -1,0 +1,40 @@
+# Experiment 5 Configuration: Full Ablation Study
+experiment_name: "exp5_ablation"
+description: "Isolates the individual and joint contributions of all four framework levers"
+key_size: 4
+noise_level: 0.03
+prefix_bits: 1
+shots: 128
+seeds_small: 15
+seeds_full: 35
+configurations:
+  - name: "Full Adaptive (All 4 Levers)"
+    no_filtering: false
+    no_adaptivity: false
+    no_noise_awareness: false
+    no_restart: false
+  - name: "Ablation: No Filtering"
+    no_filtering: true
+    no_adaptivity: false
+    no_noise_awareness: false
+    no_restart: false
+  - name: "Ablation: No Adaptivity"
+    no_filtering: false
+    no_adaptivity: true
+    no_noise_awareness: false
+    no_restart: false
+  - name: "Ablation: No Noise-Awareness"
+    no_filtering: false
+    no_adaptivity: false
+    no_noise_awareness: true
+    no_restart: false
+  - name: "Ablation: No Restarts (Single Run)"
+    no_filtering: false
+    no_adaptivity: false
+    no_noise_awareness: false
+    no_restart: true
+  - name: "Ablation: Base Standard Grover"
+    no_filtering: true
+    no_adaptivity: true
+    no_noise_awareness: true
+    no_restart: true

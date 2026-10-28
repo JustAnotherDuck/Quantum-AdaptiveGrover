@@ -1,0 +1,1 @@
+**Figure 4: Candidate Filtering Efficiency.** Measured speedup factor over classical brute force as search space constraints reduce candidate cardinality, including classical pre-filtering overhead. Source: `exp4_filtering_agg.csv`.

@@ -1,0 +1,13 @@
+# Experiment 1 Configuration: Scalability Baseline vs Key Size
+experiment_name: "exp1_scalability"
+description: "Classical brute force vs Standard Grover vs Adaptive Grover across key sizes"
+key_sizes_small: [3, 4, 5]
+key_sizes_full: [3, 4, 5, 6, 7]
+noise_level: 0.02
+shots: 128
+seeds_small: 15
+seeds_full: 35
+strategies:
+  - "Classical Brute Force"
+  - "Standard Grover"
+  - "Adaptive Hybrid (Proposed)"

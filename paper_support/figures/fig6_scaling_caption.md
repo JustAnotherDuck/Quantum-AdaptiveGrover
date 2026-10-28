@@ -1,0 +1,1 @@
+**Figure 6: Reversible SPN Circuit Resource Scaling.** Physical qubits and transpiled circuit depth for Mode B reversible cipher oracles. Solid markers represent measured gate synthesis up to 16 bits; dashed markers show architectural extrapolations up to 128-bit key recovery. Source: `exp6_scaling_agg.csv`.

@@ -1,0 +1,15 @@
+# Experiment 2 Configuration: Noise Level vs Recovery Probability
+experiment_name: "exp2_noise"
+description: "Recovery probability across noise levels for all six strategies"
+key_size: 4
+noise_levels: [0.00, 0.02, 0.05, 0.10, 0.15, 0.20]
+shots: 128
+seeds_small: 15
+seeds_full: 35
+strategies:
+  - "Classical Brute Force"
+  - "Standard Grover"
+  - "BBHT (Exponential Schedule)"
+  - "Noise-Aware Grover"
+  - "Shallow + Restart"
+  - "Adaptive Hybrid (Proposed)"

@@ -1,0 +1,31 @@
+noise_level,strategy,recovery_rate,ci_low,ci_high,mean_total_cost
+0.0,Noise-Aware Grover,1.0,1.0,1.0,129.0
+0.0,Shallow + Restart,1.0,1.0,1.0,11.533333333333333
+0.0,Standard Grover,1.0,1.0,1.0,385.0
+0.01,Noise-Aware Grover,1.0,1.0,1.0,129.0
+0.01,Shallow + Restart,1.0,1.0,1.0,10.933333333333334
+0.01,Standard Grover,1.0,1.0,1.0,385.0
+0.02,Noise-Aware Grover,1.0,1.0,1.0,129.0
+0.02,Shallow + Restart,1.0,1.0,1.0,10.933333333333334
+0.02,Standard Grover,1.0,1.0,1.0,385.0
+0.03,Noise-Aware Grover,1.0,1.0,1.0,129.0
+0.03,Shallow + Restart,1.0,1.0,1.0,10.933333333333334
+0.03,Standard Grover,1.0,1.0,1.0,385.0
+0.04,Noise-Aware Grover,1.0,1.0,1.0,129.0
+0.04,Shallow + Restart,1.0,1.0,1.0,11.066666666666666
+0.04,Standard Grover,1.0,1.0,1.0,385.0
+0.05,Noise-Aware Grover,1.0,1.0,1.0,129.0
+0.05,Shallow + Restart,1.0,1.0,1.0,11.133333333333333
+0.05,Standard Grover,1.0,1.0,1.0,385.0
+0.06,Noise-Aware Grover,1.0,1.0,1.0,129.0
+0.06,Shallow + Restart,1.0,1.0,1.0,10.8
+0.06,Standard Grover,1.0,1.0,1.0,385.0
+0.08,Noise-Aware Grover,1.0,1.0,1.0,129.0
+0.08,Shallow + Restart,1.0,1.0,1.0,11.0
+0.08,Standard Grover,1.0,1.0,1.0,385.0
+0.1,Noise-Aware Grover,1.0,1.0,1.0,129.0
+0.1,Shallow + Restart,1.0,1.0,1.0,10.6
+0.1,Standard Grover,1.0,1.0,1.0,385.0
+0.15,Noise-Aware Grover,1.0,1.0,1.0,129.0
+0.15,Shallow + Restart,1.0,1.0,1.0,10.8
+0.15,Standard Grover,1.0,1.0,1.0,385.0

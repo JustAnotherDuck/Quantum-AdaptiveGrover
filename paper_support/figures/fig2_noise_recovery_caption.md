@@ -1,0 +1,1 @@
+**Figure 2: Noise Resilience across Search Strategies.** Key recovery probability as depolarizing error sweeps from 0% to 20% on n=4 bit key search. While deep fixed Grover degrades sharply past 5% noise, noise-aware and adaptive shallow-restart mechanisms maintain high recovery rates. Error bars depict 95% bootstrap confidence intervals. Source: `exp2_noise_agg.csv`.

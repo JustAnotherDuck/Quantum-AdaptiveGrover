@@ -1,0 +1,10 @@
+# Experiment 6 Configuration: Circuit Resource Scaling for Mode B Reversible Cipher
+experiment_name: "exp6_scaling"
+description: "Empirical circuit synthesis and logical resource scaling for reversible cipher oracle"
+evaluated_key_sizes: [4, 8, 12, 16]
+rounds_per_key_size:
+  4: 1
+  8: 2
+  12: 3
+  16: 4
+extrapolate_key_sizes: [32, 64, 128]
