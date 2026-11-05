@@ -53,9 +53,7 @@ class Cipher(ABC):
     def validate_key(self, key: int) -> None:
         """Ensure key is within valid bit bounds."""
         if not (0 <= key < (1 << self.key_size)):
-            raise ValueError(
-                f"Key {key:#x} out of range for {self.key_size}-bit key space."
-            )
+            raise ValueError(f"Key {key:#x} out of range for {self.key_size}-bit key space.")
 
     def validate_block(self, block: int) -> None:
         """Ensure block is within valid bit bounds."""

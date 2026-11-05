@@ -45,26 +45,38 @@ class NoiseAwareGroverStrategy(BaseStrategy):
             else None
         )
         sim = AerSimulator(noise_model=noise_model)
-        shots = min(context.shots_per_round, 1024)
-        result = sim.run(qc, shots=shots, seed_simulator=context.seed).result()
-        counts = result.get_counts()
+        shots_batch = min(context.shots_per_round, 128)
+        oracle_calls_per_batch = k_opt * shots_batch
 
-        sorted_counts = sorted(counts.items(), key=lambda item: item[1], reverse=True)
-
+        total_oracle_calls = 0
+        verify_cost = 0
         found_key: Optional[int] = None
         is_verified = False
-        verify_cost = 0
+        per_attempt_success = False
+        rounds = 0
 
-        for bitstr, _ in sorted_counts:
-            candidate = int(bitstr, 2)
-            verify_cost += 1
-            if context.verify_fn(candidate):
-                found_key = candidate
-                is_verified = True
+        while total_oracle_calls + oracle_calls_per_batch <= context.max_total_oracle_calls:
+            rounds += 1
+            total_oracle_calls += oracle_calls_per_batch
+            seed_sim = (context.seed + rounds * 1000) if context.seed else None
+            result = sim.run(qc, shots=shots_batch, seed_simulator=seed_sim).result()
+            counts = result.get_counts()
+            sorted_counts = sorted(counts.items(), key=lambda item: item[1], reverse=True)
+
+            for bitstr, _ in sorted_counts:
+                candidate = int(bitstr, 2)
+                verify_cost += 1
+                if context.verify_fn(candidate):
+                    found_key = candidate
+                    is_verified = True
+                    if rounds == 1:
+                        per_attempt_success = True
+                    break
+
+            if is_verified:
                 break
 
         wall_time = time.time() - start_time
-        total_oracle_calls = k_opt * shots
         total_cost = float(total_oracle_calls + verify_cost)
 
         return ExecutionRecord(
@@ -72,7 +84,7 @@ class NoiseAwareGroverStrategy(BaseStrategy):
             target_key=context.target_key,
             found_key=found_key,
             is_verified=is_verified,
-            iterations=k_opt,
+            iterations=k_opt * rounds,
             oracle_calls=total_oracle_calls,
             classical_filter_cost=0,
             classical_verify_cost=verify_cost,
@@ -81,13 +93,16 @@ class NoiseAwareGroverStrategy(BaseStrategy):
             qubits_total=circuit_stats["qubits"],
             two_qubit_gates=circuit_stats["two_qubit_gates"],
             total_gates=circuit_stats["total_gates"],
-            shots=shots,
+            shots=total_oracle_calls,
             noise_level=context.noise_level,
             wall_clock_time=wall_time,
             seed=context.seed,
             extra_metadata={
                 "k_noise_aware": k_opt,
+                "rounds": rounds,
                 "estimated_fidelity": fidelity,
                 "expected_theoretical_cost": expected_cost,
+                "per_attempt_success": per_attempt_success,
+                "eventual_success": is_verified,
             },
         )

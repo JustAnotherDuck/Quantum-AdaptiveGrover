@@ -3,9 +3,9 @@
 from agqca.filtering.constraints import PrefixConstraint
 from agqca.strategies.adaptive import AdaptiveHybridStrategy
 from agqca.strategies.base import SearchContext
-from agqca.strategies.bbht import BBHTStrategy
 from agqca.strategies.brute_force import ClassicalBruteForceStrategy
 from agqca.strategies.noise_aware import NoiseAwareGroverStrategy
+from agqca.strategies.null_control import RandomGuessNullControlStrategy
 from agqca.strategies.shallow_restart import ShallowRestartStrategy
 from agqca.strategies.standard import StandardGroverStrategy
 
@@ -43,13 +43,16 @@ def test_standard_grover_finds_key_noiseless() -> None:
     assert rec.found_key == 6
 
 
-def test_bbht_finds_key_noiseless() -> None:
-    """Verify BBHT finds key under unknown M schedule."""
+def test_null_control_strategy() -> None:
+    """Verify random-guessing null control evaluates under budget."""
     ctx = make_context(key_size=3, target_key=2, noise_level=0.0)
-    strat = BBHTStrategy()
+    strat = RandomGuessNullControlStrategy()
     rec = strat.run(ctx)
-    assert rec.is_verified
-    assert rec.found_key == 2
+    assert rec.strategy_name == "Random Guess (Null Control)"
+    assert rec.classical_verify_cost > 0
+    assert rec.oracle_calls == 0
+    if rec.is_verified:
+        assert rec.found_key == 2
 
 
 def test_noise_aware_grover_finds_key() -> None:

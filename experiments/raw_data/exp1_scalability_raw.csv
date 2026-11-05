@@ -1,136 +1,136 @@
-strategy_name,target_key,found_key,is_verified,iterations,oracle_calls,classical_filter_cost,classical_verify_cost,total_effective_cost,circuit_depth,qubits_total,two_qubit_gates,total_gates,shots,noise_level,wall_clock_time,seed,search_space_N,expected_trials,worst_trials,key_size,k_ideal,unique_candidates_checked,rounds,candidates_remaining,decisions,final_estimated_fidelity
-Classical Brute Force,2,2,True,0,0,0,8,8.0,0,0,0,0,0,0.02,1.4066696166992188e-05,3000,8.0,4.0,8.0,3,,,,,,
-Standard Grover,2,2,True,2,256,0,1,257.0,46,3,24,66,128,0.02,0.4448368549346924,3000,,,,3,2.0,1.0,,,,
-Adaptive Hybrid (Proposed),2,2,True,1,64,0,1,65.0,24,3,12,36,64,0.02,0.00461125373840332,3000,,,,3,,,1.0,8.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=2).'}]",0.8946608946608946
-Classical Brute Force,4,4,True,0,0,0,8,8.0,0,0,0,0,0,0.02,1.1920928955078125e-05,3001,8.0,4.0,8.0,3,,,,,,
-Standard Grover,4,4,True,2,256,0,1,257.0,46,3,24,66,128,0.02,0.004565000534057617,3001,,,,3,2.0,1.0,,,,
-Adaptive Hybrid (Proposed),4,4,True,1,64,0,1,65.0,24,3,12,36,64,0.02,0.004197120666503906,3001,,,,3,,,1.0,8.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=2).'}]",0.8858423808639999
-Classical Brute Force,3,3,True,0,0,0,8,8.0,0,0,0,0,0,0.02,1.2159347534179688e-05,3002,8.0,4.0,8.0,3,,,,,,
-Standard Grover,3,3,True,2,256,0,1,257.0,46,3,24,66,128,0.02,0.004349946975708008,3002,,,,3,2.0,1.0,,,,
-Adaptive Hybrid (Proposed),3,3,True,1,64,0,1,65.0,24,3,12,36,64,0.02,0.004338979721069336,3002,,,,3,,,1.0,8.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=2).'}]",0.9639249639249637
-Classical Brute Force,7,7,True,0,0,0,8,8.0,0,0,0,0,0,0.02,1.0967254638671875e-05,3003,8.0,4.0,8.0,3,,,,,,
-Standard Grover,7,7,True,2,256,0,1,257.0,46,3,24,66,128,0.02,0.0046918392181396484,3003,,,,3,2.0,1.0,,,,
-Adaptive Hybrid (Proposed),7,7,True,1,64,0,1,65.0,24,3,12,36,64,0.02,0.004015684127807617,3003,,,,3,,,1.0,8.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=2).'}]",0.8858423808639999
-Classical Brute Force,7,7,True,0,0,0,8,8.0,0,0,0,0,0,0.02,1.0967254638671875e-05,3004,8.0,4.0,8.0,3,,,,,,
-Standard Grover,7,7,True,2,256,0,1,257.0,46,3,24,66,128,0.02,0.0048580169677734375,3004,,,,3,2.0,1.0,,,,
-Adaptive Hybrid (Proposed),7,7,True,1,64,0,1,65.0,24,3,12,36,64,0.02,0.003749847412109375,3004,,,,3,,,1.0,8.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=2).'}]",0.8858423808639999
-Classical Brute Force,0,0,True,0,0,0,8,8.0,0,0,0,0,0,0.02,1.0967254638671875e-05,3005,8.0,4.0,8.0,3,,,,,,
-Standard Grover,0,0,True,2,256,0,1,257.0,46,3,24,66,128,0.02,0.004182100296020508,3005,,,,3,2.0,1.0,,,,
-Adaptive Hybrid (Proposed),0,0,True,1,64,0,1,65.0,24,3,12,36,64,0.02,0.0038597583770751953,3005,,,,3,,,1.0,8.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=2).'}]",0.8946608946608946
-Classical Brute Force,1,1,True,0,0,0,8,8.0,0,0,0,0,0,0.02,1.0967254638671875e-05,3006,8.0,4.0,8.0,3,,,,,,
-Standard Grover,1,1,True,2,256,0,1,257.0,46,3,24,66,128,0.02,0.004114866256713867,3006,,,,3,2.0,1.0,,,,
-Adaptive Hybrid (Proposed),1,1,True,1,64,0,1,65.0,24,3,12,36,64,0.02,0.004189014434814453,3006,,,,3,,,1.0,8.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=2).'}]",0.779220779220779
-Classical Brute Force,5,5,True,0,0,0,8,8.0,0,0,0,0,0,0.02,1.0967254638671875e-05,3007,8.0,4.0,8.0,3,,,,,,
-Standard Grover,5,5,True,2,256,0,1,257.0,46,3,24,66,128,0.02,0.004312038421630859,3007,,,,3,2.0,1.0,,,,
-Adaptive Hybrid (Proposed),5,5,True,1,64,0,1,65.0,24,3,12,36,64,0.02,0.0038406848907470703,3007,,,,3,,,1.0,8.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=2).'}]",0.8858423808639999
-Classical Brute Force,4,4,True,0,0,0,8,8.0,0,0,0,0,0,0.02,1.1205673217773438e-05,3008,8.0,4.0,8.0,3,,,,,,
-Standard Grover,4,4,True,2,256,0,1,257.0,46,3,24,66,128,0.02,0.00433802604675293,3008,,,,3,2.0,1.0,,,,
-Adaptive Hybrid (Proposed),4,4,True,1,64,0,1,65.0,24,3,12,36,64,0.02,0.00392603874206543,3008,,,,3,,,1.0,8.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=2).'}]",0.8858423808639999
-Classical Brute Force,7,7,True,0,0,0,8,8.0,0,0,0,0,0,0.02,1.0967254638671875e-05,3009,8.0,4.0,8.0,3,,,,,,
-Standard Grover,7,7,True,2,256,0,1,257.0,46,3,24,66,128,0.02,0.0045549869537353516,3009,,,,3,2.0,1.0,,,,
-Adaptive Hybrid (Proposed),7,7,True,1,64,0,1,65.0,24,3,12,36,64,0.02,0.0037250518798828125,3009,,,,3,,,1.0,8.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=2).'}]",0.8715728715728714
-Classical Brute Force,5,5,True,0,0,0,8,8.0,0,0,0,0,0,0.02,1.0967254638671875e-05,3010,8.0,4.0,8.0,3,,,,,,
-Standard Grover,5,5,True,2,256,0,1,257.0,46,3,24,66,128,0.02,0.004585981369018555,3010,,,,3,2.0,1.0,,,,
-Adaptive Hybrid (Proposed),5,5,True,1,64,0,1,65.0,24,3,12,36,64,0.02,0.003831148147583008,3010,,,,3,,,1.0,8.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=2).'}]",0.8484848484848483
-Classical Brute Force,3,3,True,0,0,0,8,8.0,0,0,0,0,0,0.02,1.0967254638671875e-05,3011,8.0,4.0,8.0,3,,,,,,
-Standard Grover,3,3,True,2,256,0,1,257.0,46,3,24,66,128,0.02,0.004178047180175781,3011,,,,3,2.0,1.0,,,,
-Adaptive Hybrid (Proposed),3,3,True,1,64,0,1,65.0,24,3,12,36,64,0.02,0.003887176513671875,3011,,,,3,,,1.0,8.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=2).'}]",0.8715728715728714
-Classical Brute Force,4,4,True,0,0,0,8,8.0,0,0,0,0,0,0.02,1.0967254638671875e-05,3012,8.0,4.0,8.0,3,,,,,,
-Standard Grover,4,4,True,2,256,0,1,257.0,46,3,24,66,128,0.02,0.004265308380126953,3012,,,,3,2.0,1.0,,,,
-Adaptive Hybrid (Proposed),4,4,True,1,64,0,1,65.0,24,3,12,36,64,0.02,0.004258871078491211,3012,,,,3,,,1.0,8.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=2).'}]",0.9408369408369407
-Classical Brute Force,7,7,True,0,0,0,8,8.0,0,0,0,0,0,0.02,1.0967254638671875e-05,3013,8.0,4.0,8.0,3,,,,,,
-Standard Grover,7,7,True,2,256,0,1,257.0,46,3,24,66,128,0.02,0.004242897033691406,3013,,,,3,2.0,1.0,,,,
-Adaptive Hybrid (Proposed),7,7,True,1,64,0,1,65.0,24,3,12,36,64,0.02,0.0037221908569335938,3013,,,,3,,,1.0,8.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=2).'}]",0.9177489177489176
-Classical Brute Force,1,1,True,0,0,0,8,8.0,0,0,0,0,0,0.02,1.0013580322265625e-05,3014,8.0,4.0,8.0,3,,,,,,
-Standard Grover,1,1,True,2,256,0,1,257.0,46,3,24,66,128,0.02,0.0041310787200927734,3014,,,,3,2.0,1.0,,,,
-Adaptive Hybrid (Proposed),1,1,True,1,64,0,1,65.0,24,3,12,36,64,0.02,0.0039539337158203125,3014,,,,3,,,1.0,8.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=2).'}]",0.8858423808639999
-Classical Brute Force,13,13,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.1920928955078125e-05,4000,16.0,8.0,16.0,4,,,,,,
-Standard Grover,13,13,True,3,384,0,1,385.0,158,4,84,182,128,0.02,0.009925127029418945,4000,,,,4,3.0,1.0,,,,
-Adaptive Hybrid (Proposed),13,13,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.006833076477050781,4000,,,,4,,,1.0,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.7711399711399711
-Classical Brute Force,13,13,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.3113021850585938e-05,4001,16.0,8.0,16.0,4,,,,,,
-Standard Grover,13,13,True,3,384,0,1,385.0,158,4,84,182,128,0.02,0.008683919906616211,4001,,,,4,3.0,1.0,,,,
-Adaptive Hybrid (Proposed),13,13,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.005038738250732422,4001,,,,4,,,1.0,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.8507630225817855
-Classical Brute Force,13,13,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.3113021850585938e-05,4002,16.0,8.0,16.0,4,,,,,,
-Standard Grover,13,13,True,3,384,0,1,385.0,158,4,84,182,128,0.02,0.00879216194152832,4002,,,,4,3.0,1.0,,,,
-Adaptive Hybrid (Proposed),13,13,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.023900270462036133,4002,,,,4,,,1.0,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.9189033189033189
-Classical Brute Force,7,7,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.2636184692382812e-05,4003,16.0,8.0,16.0,4,,,,,,
-Standard Grover,7,7,True,3,384,0,1,385.0,158,4,84,182,128,0.02,0.019044160842895508,4003,,,,4,3.0,1.0,,,,
-Adaptive Hybrid (Proposed),7,7,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.031925201416015625,4003,,,,4,,,1.0,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.9927849927849929
-Classical Brute Force,15,15,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.3828277587890625e-05,4004,16.0,8.0,16.0,4,,,,,,
-Standard Grover,15,15,True,3,384,0,1,385.0,158,4,84,182,128,0.02,0.009026050567626953,4004,,,,4,3.0,1.0,,,,
-Adaptive Hybrid (Proposed),15,15,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.005444765090942383,4004,,,,4,,,1.0,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.8507630225817855
-Classical Brute Force,7,7,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.3113021850585938e-05,4005,16.0,8.0,16.0,4,,,,,,
-Standard Grover,7,7,True,3,384,0,1,385.0,158,4,84,182,128,0.02,0.008418083190917969,4005,,,,4,3.0,1.0,,,,
-Adaptive Hybrid (Proposed),7,7,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.0049211978912353516,4005,,,,4,,,1.0,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.881962481962482
-Classical Brute Force,7,7,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.2874603271484375e-05,4006,16.0,8.0,16.0,4,,,,,,
-Standard Grover,7,7,True,3,384,0,1,385.0,158,4,84,182,128,0.02,0.007821083068847656,4006,,,,4,3.0,1.0,,,,
-Adaptive Hybrid (Proposed),7,7,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.005522251129150391,4006,,,,4,,,1.0,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.8507630225817855
-Classical Brute Force,5,5,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.1682510375976562e-05,4007,16.0,8.0,16.0,4,,,,,,
-Standard Grover,5,5,True,3,384,0,1,385.0,158,4,84,182,128,0.02,0.008623838424682617,4007,,,,4,3.0,1.0,,,,
-Adaptive Hybrid (Proposed),5,5,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.004909992218017578,4007,,,,4,,,1.0,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.9558441558441558
-Classical Brute Force,3,3,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.3113021850585938e-05,4008,16.0,8.0,16.0,4,,,,,,
-Standard Grover,3,3,True,3,384,0,1,385.0,158,4,84,182,128,0.02,0.008275270462036133,4008,,,,4,3.0,1.0,,,,
-Adaptive Hybrid (Proposed),3,3,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.005352973937988281,4008,,,,4,,,1.0,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.8507630225817855
-Classical Brute Force,14,14,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.1920928955078125e-05,4009,16.0,8.0,16.0,4,,,,,,
-Standard Grover,14,14,True,3,384,0,1,385.0,158,4,84,182,128,0.02,0.007951021194458008,4009,,,,4,3.0,1.0,,,,
-Adaptive Hybrid (Proposed),14,14,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.004923820495605469,4009,,,,4,,,1.0,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.8507630225817855
-Classical Brute Force,4,4,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.1920928955078125e-05,4010,16.0,8.0,16.0,4,,,,,,
-Standard Grover,4,4,True,3,384,0,1,385.0,158,4,84,182,128,0.02,0.008430957794189453,4010,,,,4,3.0,1.0,,,,
-Adaptive Hybrid (Proposed),4,4,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.0045359134674072266,4010,,,,4,,,1.0,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.7341991341991342
-Classical Brute Force,1,1,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.3113021850585938e-05,4011,16.0,8.0,16.0,4,,,,,,
-Standard Grover,1,1,True,3,384,0,1,385.0,158,4,84,182,128,0.02,0.00908517837524414,4011,,,,4,3.0,1.0,,,,
-Adaptive Hybrid (Proposed),1,1,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.0052568912506103516,4011,,,,4,,,1.0,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.881962481962482
-Classical Brute Force,5,5,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.2159347534179688e-05,4012,16.0,8.0,16.0,4,,,,,,
-Standard Grover,5,5,True,3,384,0,1,385.0,158,4,84,182,128,0.02,0.007975101470947266,4012,,,,4,3.0,1.0,,,,
-Adaptive Hybrid (Proposed),5,5,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.005220174789428711,4012,,,,4,,,1.0,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.8080808080808081
-Classical Brute Force,1,1,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.2874603271484375e-05,4013,16.0,8.0,16.0,4,,,,,,
-Standard Grover,1,1,True,3,384,0,1,385.0,158,4,84,182,128,0.02,0.00862574577331543,4013,,,,4,3.0,1.0,,,,
-Adaptive Hybrid (Proposed),1,1,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.004683971405029297,4013,,,,4,,,1.0,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.8450216450216451
-Classical Brute Force,12,12,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.1920928955078125e-05,4014,16.0,8.0,16.0,4,,,,,,
-Standard Grover,12,12,True,3,384,0,1,385.0,158,4,84,182,128,0.02,0.008126020431518555,4014,,,,4,3.0,1.0,,,,
-Adaptive Hybrid (Proposed),12,12,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.004856109619140625,4014,,,,4,,,1.0,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.8507630225817855
-Classical Brute Force,14,14,True,0,0,0,32,32.0,0,0,0,0,0,0.02,1.5735626220703125e-05,5000,32.0,16.0,32.0,5,,,,,,
-Standard Grover,14,14,True,4,512,0,1,513.0,514,5,288,634,128,0.02,0.013819694519042969,5000,,,,5,4.0,1.0,,,,
-Adaptive Hybrid (Proposed),14,14,True,1,64,0,1,65.0,130,5,72,166,64,0.02,0.005930900573730469,5000,,,,5,,,1.0,32.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=4).'}]",0.8170728068875467
-Classical Brute Force,18,18,True,0,0,0,32,32.0,0,0,0,0,0,0.02,1.52587890625e-05,5001,32.0,16.0,32.0,5,,,,,,
-Standard Grover,18,18,True,4,512,0,1,513.0,514,5,288,634,128,0.02,0.012388229370117188,5001,,,,5,4.0,1.0,,,,
-Adaptive Hybrid (Proposed),18,18,True,1,64,0,1,65.0,130,5,72,166,64,0.02,0.006239891052246094,5001,,,,5,,,1.0,32.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=4).'}]",0.8170728068875467
-Classical Brute Force,16,16,True,0,0,0,32,32.0,0,0,0,0,0,0.02,1.4781951904296875e-05,5002,32.0,16.0,32.0,5,,,,,,
-Standard Grover,16,16,True,4,512,0,1,513.0,514,5,288,634,128,0.02,0.012260198593139648,5002,,,,5,4.0,1.0,,,,
-Adaptive Hybrid (Proposed),16,16,True,1,64,0,1,65.0,130,5,72,166,64,0.02,0.00556492805480957,5002,,,,5,,,1.0,32.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=4).'}]",0.7966112740306285
-Classical Brute Force,10,10,True,0,0,0,32,32.0,0,0,0,0,0,0.02,1.5020370483398438e-05,5003,32.0,16.0,32.0,5,,,,,,
-Standard Grover,10,10,True,4,512,0,1,513.0,514,5,288,634,128,0.02,0.013075113296508789,5003,,,,5,4.0,1.0,,,,
-Adaptive Hybrid (Proposed),10,10,True,1,64,0,1,65.0,130,5,72,166,64,0.02,0.0058307647705078125,5003,,,,5,,,1.0,32.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=4).'}]",0.8170728068875467
-Classical Brute Force,21,21,True,0,0,0,32,32.0,0,0,0,0,0,0.02,1.621246337890625e-05,5004,32.0,16.0,32.0,5,,,,,,
-Standard Grover,21,21,True,4,512,0,1,513.0,514,5,288,634,128,0.02,0.01247406005859375,5004,,,,5,4.0,1.0,,,,
-Adaptive Hybrid (Proposed),21,21,True,1,64,0,1,65.0,130,5,72,166,64,0.02,0.0063381195068359375,5004,,,,5,,,1.0,32.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=4).'}]",0.9300749429781684
-Classical Brute Force,13,13,True,0,0,0,32,32.0,0,0,0,0,0,0.02,1.5020370483398438e-05,5005,32.0,16.0,32.0,5,,,,,,
-Standard Grover,13,13,True,4,512,0,1,513.0,514,5,288,634,128,0.02,0.012905120849609375,5005,,,,5,4.0,1.0,,,,
-Adaptive Hybrid (Proposed),13,13,True,1,64,0,1,65.0,130,5,72,166,64,0.02,0.005747079849243164,5005,,,,5,,,1.0,32.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=4).'}]",0.8170728068875467
-Classical Brute Force,10,10,True,0,0,0,32,32.0,0,0,0,0,0,0.02,1.52587890625e-05,5006,32.0,16.0,32.0,5,,,,,,
-Standard Grover,10,10,True,4,512,0,1,513.0,514,5,288,634,128,0.02,0.012670278549194336,5006,,,,5,4.0,1.0,,,,
-Adaptive Hybrid (Proposed),10,10,True,1,64,0,1,65.0,130,5,72,166,64,0.02,0.00577998161315918,5006,,,,5,,,1.0,32.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=4).'}]",0.8633431085043983
-Classical Brute Force,8,8,True,0,0,0,32,32.0,0,0,0,0,0,0.02,1.621246337890625e-05,5007,32.0,16.0,32.0,5,,,,,,
-Standard Grover,8,8,True,4,512,0,1,513.0,514,5,288,634,128,0.02,0.012857913970947266,5007,,,,5,4.0,1.0,,,,
-Adaptive Hybrid (Proposed),8,8,True,1,64,0,1,65.0,130,5,72,166,64,0.02,0.005796194076538086,5007,,,,5,,,1.0,32.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=4).'}]",0.8170728068875467
-Classical Brute Force,0,0,True,0,0,0,32,32.0,0,0,0,0,0,0.02,1.5974044799804688e-05,5008,32.0,16.0,32.0,5,,,,,,
-Standard Grover,0,0,True,4,512,0,1,513.0,514,5,288,634,128,0.02,0.013651132583618164,5008,,,,5,4.0,1.0,,,,
-Adaptive Hybrid (Proposed),0,0,True,1,64,0,1,65.0,130,5,72,166,64,0.02,0.006720066070556641,5008,,,,5,,,1.0,32.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=4).'}]",0.8170728068875467
-Classical Brute Force,20,20,True,0,0,0,32,32.0,0,0,0,0,0,0.02,1.52587890625e-05,5009,32.0,16.0,32.0,5,,,,,,
-Standard Grover,20,20,True,4,512,0,1,513.0,514,5,288,634,128,0.02,0.012810945510864258,5009,,,,5,4.0,1.0,,,,
-Adaptive Hybrid (Proposed),20,20,True,1,64,0,1,65.0,130,5,72,166,64,0.02,0.005686044692993164,5009,,,,5,,,1.0,32.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=4).'}]",0.8170728068875467
-Classical Brute Force,19,19,True,0,0,0,32,32.0,0,0,0,0,0,0.02,1.5020370483398438e-05,5010,32.0,16.0,32.0,5,,,,,,
-Standard Grover,19,19,True,4,512,0,1,513.0,514,5,288,634,128,0.02,0.013617277145385742,5010,,,,5,4.0,1.0,,,,
-Adaptive Hybrid (Proposed),19,19,True,1,64,0,1,65.0,130,5,72,166,64,0.02,0.005926847457885742,5010,,,,5,,,1.0,32.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=4).'}]",0.8170728068875467
-Classical Brute Force,12,12,True,0,0,0,32,32.0,0,0,0,0,0,0.02,1.5735626220703125e-05,5011,32.0,16.0,32.0,5,,,,,,
-Standard Grover,12,12,True,4,512,0,1,513.0,514,5,288,634,128,0.02,0.012334108352661133,5011,,,,5,4.0,1.0,,,,
-Adaptive Hybrid (Proposed),12,12,True,1,64,0,1,65.0,130,5,72,166,64,0.02,0.006476163864135742,5011,,,,5,,,1.0,32.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=4).'}]",0.8170728068875467
-Classical Brute Force,4,4,True,0,0,0,32,32.0,0,0,0,0,0,0.02,1.5974044799804688e-05,5012,32.0,16.0,32.0,5,,,,,,
-Standard Grover,4,4,True,4,512,0,1,513.0,514,5,288,634,128,0.02,0.01260995864868164,5012,,,,5,4.0,1.0,,,,
-Adaptive Hybrid (Proposed),4,4,True,1,64,0,1,65.0,130,5,72,166,64,0.02,0.006636142730712891,5012,,,,5,,,1.0,32.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=4).'}]",0.9968067774519382
-Classical Brute Force,16,16,True,0,0,0,32,32.0,0,0,0,0,0,0.02,1.621246337890625e-05,5013,32.0,16.0,32.0,5,,,,,,
-Standard Grover,16,16,True,4,512,0,1,513.0,514,5,288,634,128,0.02,0.013420820236206055,5013,,,,5,4.0,1.0,,,,
-Adaptive Hybrid (Proposed),16,16,True,1,64,0,1,65.0,130,5,72,166,64,0.02,0.005873203277587891,5013,,,,5,,,1.0,32.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=4).'}]",0.8170728068875467
-Classical Brute Force,10,10,True,0,0,0,32,32.0,0,0,0,0,0,0.02,1.5020370483398438e-05,5014,32.0,16.0,32.0,5,,,,,,
-Standard Grover,10,10,True,4,512,0,1,513.0,514,5,288,634,128,0.02,0.012498140335083008,5014,,,,5,4.0,1.0,,,,
-Adaptive Hybrid (Proposed),10,10,True,1,64,0,1,65.0,130,5,72,166,64,0.02,0.005408048629760742,5014,,,,5,,,1.0,32.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=4).'}]",0.7966112740306285
+strategy_name,target_key,found_key,is_verified,iterations,oracle_calls,classical_filter_cost,classical_verify_cost,total_effective_cost,circuit_depth,qubits_total,two_qubit_gates,total_gates,shots,noise_level,wall_clock_time,seed,search_space_N,expected_trials,worst_trials,key_size,k_ideal,rounds,per_attempt_success,eventual_success,candidates_remaining,decisions,final_estimated_fidelity
+Classical Brute Force,13,13,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.811981201171875e-05,4000,16.0,8.0,16.0,4,,,,,,,
+Standard Grover,13,13,True,3,384,0,1,385.0,158,4,84,182,384,0.02,0.397197961807251,4000,,,,4,3.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),13,13,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.005806922912597656,4000,,,,4,,1.0,True,True,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.7711399711399711
+Classical Brute Force,13,13,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.52587890625e-05,4001,16.0,8.0,16.0,4,,,,,,,
+Standard Grover,13,13,True,3,384,0,1,385.0,158,4,84,182,384,0.02,0.00836181640625,4001,,,,4,3.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),13,13,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.005366802215576172,4001,,,,4,,1.0,True,True,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.8507630225817855
+Classical Brute Force,13,13,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.3113021850585938e-05,4002,16.0,8.0,16.0,4,,,,,,,
+Standard Grover,13,13,True,3,384,0,1,385.0,158,4,84,182,384,0.02,0.008452177047729492,4002,,,,4,3.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),13,13,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.0052030086517333984,4002,,,,4,,1.0,True,True,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.9189033189033189
+Classical Brute Force,7,7,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.3113021850585938e-05,4003,16.0,8.0,16.0,4,,,,,,,
+Standard Grover,7,7,True,3,384,0,1,385.0,158,4,84,182,384,0.02,0.008034229278564453,4003,,,,4,3.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),7,7,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.006134748458862305,4003,,,,4,,1.0,True,True,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.9927849927849929
+Classical Brute Force,15,15,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.2636184692382812e-05,4004,16.0,8.0,16.0,4,,,,,,,
+Standard Grover,15,15,True,3,384,0,1,385.0,158,4,84,182,384,0.02,0.00785207748413086,4004,,,,4,3.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),15,15,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.005543947219848633,4004,,,,4,,1.0,True,True,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.8507630225817855
+Classical Brute Force,7,7,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.1920928955078125e-05,4005,16.0,8.0,16.0,4,,,,,,,
+Standard Grover,7,7,True,3,384,0,1,385.0,158,4,84,182,384,0.02,0.009033918380737305,4005,,,,4,3.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),7,7,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.00518798828125,4005,,,,4,,1.0,True,True,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.881962481962482
+Classical Brute Force,7,7,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.2874603271484375e-05,4006,16.0,8.0,16.0,4,,,,,,,
+Standard Grover,7,7,True,3,384,0,1,385.0,158,4,84,182,384,0.02,0.00887608528137207,4006,,,,4,3.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),7,7,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.005430936813354492,4006,,,,4,,1.0,True,True,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.8507630225817855
+Classical Brute Force,5,5,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.2874603271484375e-05,4007,16.0,8.0,16.0,4,,,,,,,
+Standard Grover,5,5,True,3,384,0,1,385.0,158,4,84,182,384,0.02,0.009621858596801758,4007,,,,4,3.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),5,5,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.00673985481262207,4007,,,,4,,1.0,True,True,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.9558441558441558
+Classical Brute Force,3,3,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.2874603271484375e-05,4008,16.0,8.0,16.0,4,,,,,,,
+Standard Grover,3,3,True,3,384,0,1,385.0,158,4,84,182,384,0.02,0.009328126907348633,4008,,,,4,3.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),3,3,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.005357980728149414,4008,,,,4,,1.0,True,True,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.8507630225817855
+Classical Brute Force,14,14,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.1920928955078125e-05,4009,16.0,8.0,16.0,4,,,,,,,
+Standard Grover,14,14,True,3,384,0,1,385.0,158,4,84,182,384,0.02,0.008655071258544922,4009,,,,4,3.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),14,14,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.0049648284912109375,4009,,,,4,,1.0,True,True,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.8507630225817855
+Classical Brute Force,4,4,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.2874603271484375e-05,4010,16.0,8.0,16.0,4,,,,,,,
+Standard Grover,4,4,True,3,384,0,1,385.0,158,4,84,182,384,0.02,0.009790897369384766,4010,,,,4,3.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),4,4,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.004953861236572266,4010,,,,4,,1.0,True,True,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.7341991341991342
+Classical Brute Force,1,1,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.3113021850585938e-05,4011,16.0,8.0,16.0,4,,,,,,,
+Standard Grover,1,1,True,3,384,0,1,385.0,158,4,84,182,384,0.02,0.009316205978393555,4011,,,,4,3.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),1,1,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.0049970149993896484,4011,,,,4,,1.0,True,True,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.881962481962482
+Classical Brute Force,5,5,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.2159347534179688e-05,4012,16.0,8.0,16.0,4,,,,,,,
+Standard Grover,5,5,True,3,384,0,1,385.0,158,4,84,182,384,0.02,0.008105993270874023,4012,,,,4,3.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),5,5,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.006164073944091797,4012,,,,4,,1.0,True,True,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.8080808080808081
+Classical Brute Force,1,1,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.3113021850585938e-05,4013,16.0,8.0,16.0,4,,,,,,,
+Standard Grover,1,1,True,3,384,0,1,385.0,158,4,84,182,384,0.02,0.00894784927368164,4013,,,,4,3.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),1,1,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.005265235900878906,4013,,,,4,,1.0,True,True,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.8450216450216451
+Classical Brute Force,12,12,True,0,0,0,16,16.0,0,0,0,0,0,0.02,1.3828277587890625e-05,4014,16.0,8.0,16.0,4,,,,,,,
+Standard Grover,12,12,True,3,384,0,1,385.0,158,4,84,182,384,0.02,0.007772922515869141,4014,,,,4,3.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),12,12,True,1,64,0,1,65.0,54,4,28,66,64,0.02,0.0045680999755859375,4014,,,,4,,1.0,True,True,16.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=3).'}]",0.8507630225817855
+Classical Brute Force,22,22,True,0,0,0,64,64.0,0,0,0,0,0,0.02,2.09808349609375e-05,6000,64.0,32.0,64.0,6,,,,,,,
+Standard Grover,22,22,True,6,768,0,1,769.0,1214,6,984,2160,768,0.02,0.02178812026977539,6000,,,,6,6.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),22,22,True,1,64,0,1,65.0,204,6,164,370,64,0.02,0.007102012634277344,6000,,,,6,,1.0,True,True,64.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=6).'}]",0.5044608915576657
+Classical Brute Force,42,42,True,0,0,0,64,64.0,0,0,0,0,0,0.02,2.09808349609375e-05,6001,64.0,32.0,64.0,6,,,,,,,
+Standard Grover,42,42,True,6,768,0,1,769.0,1214,6,984,2160,768,0.02,0.021446943283081055,6001,,,,6,6.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),42,42,True,1,64,0,1,65.0,204,6,164,370,64,0.02,0.008949995040893555,6001,,,,6,,1.0,True,True,64.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=6).'}]",0.7847167237347998
+Classical Brute Force,22,22,True,0,0,0,64,64.0,0,0,0,0,0,0.02,2.193450927734375e-05,6002,64.0,32.0,64.0,6,,,,,,,
+Standard Grover,22,22,True,6,768,0,1,769.0,1214,6,984,2160,768,0.02,0.0223538875579834,6002,,,,6,6.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),22,22,True,1,64,0,1,65.0,204,6,164,370,64,0.02,0.007112979888916016,6002,,,,6,,1.0,True,True,64.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=6).'}]",0.7847167237347998
+Classical Brute Force,36,36,True,0,0,0,64,64.0,0,0,0,0,0,0.02,2.1219253540039062e-05,6003,64.0,32.0,64.0,6,,,,,,,
+Standard Grover,36,36,True,6,768,0,1,769.0,1214,6,984,2160,768,0.02,0.026232242584228516,6003,,,,6,6.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),36,36,True,1,64,0,1,65.0,204,6,164,370,64,0.02,0.0073931217193603516,6003,,,,6,,1.0,True,True,64.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=6).'}]",0.7586774038386942
+Classical Brute Force,33,33,True,0,0,0,64,64.0,0,0,0,0,0,0.02,2.09808349609375e-05,6004,64.0,32.0,64.0,6,,,,,,,
+Standard Grover,33,33,True,6,768,0,1,769.0,1214,6,984,2160,768,0.02,0.02080702781677246,6004,,,,6,6.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),33,33,True,1,64,0,1,65.0,204,6,164,370,64,0.02,0.006609201431274414,6004,,,,6,,1.0,True,True,64.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=6).'}]",0.8857856599792084
+Classical Brute Force,25,25,True,0,0,0,64,64.0,0,0,0,0,0,0.02,2.0265579223632812e-05,6005,64.0,32.0,64.0,6,,,,,,,
+Standard Grover,25,25,True,6,768,0,1,769.0,1214,6,984,2160,768,0.02,0.020994901657104492,6005,,,,6,6.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),25,25,True,1,64,0,1,65.0,204,6,164,370,64,0.02,0.006165027618408203,6005,,,,6,,1.0,True,True,64.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=6).'}]",0.7586774038386942
+Classical Brute Force,5,5,True,0,0,0,64,64.0,0,0,0,0,0,0.02,2.002716064453125e-05,6006,64.0,32.0,64.0,6,,,,,,,
+Standard Grover,5,5,True,6,768,0,1,769.0,1214,6,984,2160,768,0.02,0.02136707305908203,6006,,,,6,6.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),5,5,True,1,64,0,1,65.0,204,6,164,370,64,0.02,0.006398916244506836,6006,,,,6,,1.0,True,True,64.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=6).'}]",0.8857856599792084
+Classical Brute Force,46,46,True,0,0,0,64,64.0,0,0,0,0,0,0.02,2.002716064453125e-05,6007,64.0,32.0,64.0,6,,,,,,,
+Standard Grover,46,46,True,6,768,0,1,769.0,1214,6,984,2160,768,0.02,0.019977331161499023,6007,,,,6,6.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),46,46,True,1,64,0,1,65.0,204,6,164,370,64,0.02,0.006627082824707031,6007,,,,6,,1.0,True,True,64.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=6).'}]",0.7847167237347998
+Classical Brute Force,28,28,True,0,0,0,64,64.0,0,0,0,0,0,0.02,2.0265579223632812e-05,6008,64.0,32.0,64.0,6,,,,,,,
+Standard Grover,28,28,True,6,768,0,1,769.0,1214,6,984,2160,768,0.02,0.02023792266845703,6008,,,,6,6.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),28,28,True,1,64,0,1,65.0,204,6,164,370,64,0.02,0.006093025207519531,6008,,,,6,,1.0,True,True,64.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=6).'}]",0.8857856599792084
+Classical Brute Force,25,25,True,0,0,0,64,64.0,0,0,0,0,0,0.02,1.9073486328125e-05,6009,64.0,32.0,64.0,6,,,,,,,
+Standard Grover,25,25,True,6,768,0,1,769.0,1214,6,984,2160,768,0.02,0.020246028900146484,6009,,,,6,6.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),25,25,True,1,64,0,1,65.0,204,6,164,370,64,0.02,0.006317138671875,6009,,,,6,,1.0,True,True,64.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=6).'}]",0.7847167237347998
+Classical Brute Force,42,42,True,0,0,0,64,64.0,0,0,0,0,0,0.02,1.9788742065429688e-05,6010,64.0,32.0,64.0,6,,,,,,,
+Standard Grover,42,42,True,6,768,0,1,769.0,1214,6,984,2160,768,0.02,0.020767927169799805,6010,,,,6,6.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),42,42,True,1,64,0,1,65.0,204,6,164,370,64,0.02,0.006356954574584961,6010,,,,6,,1.0,True,True,64.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=6).'}]",0.7586774038386942
+Classical Brute Force,34,34,True,0,0,0,64,64.0,0,0,0,0,0,0.02,1.9788742065429688e-05,6011,64.0,32.0,64.0,6,,,,,,,
+Standard Grover,34,34,True,6,768,0,1,769.0,1214,6,984,2160,768,0.02,0.020532846450805664,6011,,,,6,6.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),34,34,True,1,64,0,1,65.0,204,6,164,370,64,0.02,0.0064661502838134766,6011,,,,6,,1.0,True,True,64.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=6).'}]",0.8857856599792084
+Classical Brute Force,31,31,True,0,0,0,64,64.0,0,0,0,0,0,0.02,1.9788742065429688e-05,6012,64.0,32.0,64.0,6,,,,,,,
+Standard Grover,31,31,True,6,768,0,1,769.0,1214,6,984,2160,768,0.02,0.01883530616760254,6012,,,,6,6.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),31,31,True,1,64,0,1,65.0,204,6,164,370,64,0.02,0.006125926971435547,6012,,,,6,,1.0,True,True,64.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=6).'}]",0.7586774038386942
+Classical Brute Force,22,22,True,0,0,0,64,64.0,0,0,0,0,0,0.02,2.002716064453125e-05,6013,64.0,32.0,64.0,6,,,,,,,
+Standard Grover,22,22,True,6,768,0,1,769.0,1214,6,984,2160,768,0.02,0.020125150680541992,6013,,,,6,6.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),22,22,True,1,64,0,1,65.0,204,6,164,370,64,0.02,0.006671905517578125,6013,,,,6,,1.0,True,True,64.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=6).'}]",0.7847167237347998
+Classical Brute Force,0,0,True,0,0,0,64,64.0,0,0,0,0,0,0.02,2.002716064453125e-05,6014,64.0,32.0,64.0,6,,,,,,,
+Standard Grover,0,0,True,6,768,0,1,769.0,1214,6,984,2160,768,0.02,0.02241802215576172,6014,,,,6,6.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),0,0,True,1,64,0,1,65.0,204,6,164,370,64,0.02,0.007299900054931641,6014,,,,6,,1.0,True,True,64.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=6).'}]",0.7586774038386942
+Classical Brute Force,180,180,True,0,0,0,256,256.0,0,0,0,0,0,0.02,5.5789947509765625e-05,8000,256.0,128.0,256.0,8,,,,,,,
+Standard Grover,180,180,True,12,1536,0,1,1537.0,3770,8,4080,8728,1536,0.02,0.057745933532714844,8000,,,,8,12.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),180,180,True,1,64,0,38,102.0,316,8,340,742,64,0.02,0.008633136749267578,8000,,,,8,,1.0,True,True,256.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=12).'}]",0.85468674704432
+Classical Brute Force,153,153,True,0,0,0,256,256.0,0,0,0,0,0,0.02,5.1975250244140625e-05,8001,256.0,128.0,256.0,8,,,,,,,
+Standard Grover,153,153,True,12,1536,0,1,1537.0,3770,8,4080,8728,1536,0.02,0.056024789810180664,8001,,,,8,12.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),153,153,True,1,64,0,5,69.0,316,8,340,742,64,0.02,0.008662223815917969,8001,,,,8,,1.0,True,True,256.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=12).'}]",0.7237977205924956
+Classical Brute Force,113,113,True,0,0,0,256,256.0,0,0,0,0,0,0.02,5.1975250244140625e-05,8002,256.0,128.0,256.0,8,,,,,,,
+Standard Grover,113,113,True,12,1536,0,1,1537.0,3770,8,4080,8728,1536,0.02,0.05421304702758789,8002,,,,8,12.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),113,113,True,2,128,0,86,214.0,316,8,340,742,128,0.02,0.016540050506591797,8002,,,,8,,2.0,False,True,256.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=12).'}, {'round': 2, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=12).'}]",0.37165164309212484
+Classical Brute Force,121,121,True,0,0,0,256,256.0,0,0,0,0,0,0.02,5.1975250244140625e-05,8003,256.0,128.0,256.0,8,,,,,,,
+Standard Grover,121,121,True,12,1536,0,1,1537.0,3770,8,4080,8728,1536,0.02,0.056059837341308594,8003,,,,8,12.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),121,121,True,1,64,0,14,78.0,316,8,340,742,64,0.02,0.009001970291137695,8003,,,,8,,1.0,True,True,256.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=12).'}]",0.85468674704432
+Classical Brute Force,240,240,True,0,0,0,256,256.0,0,0,0,0,0,0.02,5.125999450683594e-05,8004,256.0,128.0,256.0,8,,,,,,,
+Standard Grover,240,240,True,12,1536,0,1,1537.0,3770,8,4080,8728,1536,0.02,0.05505776405334473,8004,,,,8,12.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),240,240,True,1,64,0,23,87.0,316,8,340,742,64,0.02,0.008682966232299805,8004,,,,8,,1.0,True,True,256.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=12).'}]",0.85468674704432
+Classical Brute Force,70,70,True,0,0,0,256,256.0,0,0,0,0,0,0.02,5.1021575927734375e-05,8005,256.0,128.0,256.0,8,,,,,,,
+Standard Grover,70,70,True,12,1536,0,1,1537.0,3770,8,4080,8728,1536,0.02,0.0567476749420166,8005,,,,8,12.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),70,70,True,1,64,0,42,106.0,316,8,340,742,64,0.02,0.009387016296386719,8005,,,,8,,1.0,True,True,256.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=12).'}]",0.85468674704432
+Classical Brute Force,26,26,True,0,0,0,256,256.0,0,0,0,0,0,0.02,5.245208740234375e-05,8006,256.0,128.0,256.0,8,,,,,,,
+Standard Grover,26,26,True,12,1536,0,1,1537.0,3770,8,4080,8728,1536,0.02,0.05649685859680176,8006,,,,8,12.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),26,26,True,1,64,0,49,113.0,316,8,340,742,64,0.02,0.008893013000488281,8006,,,,8,,1.0,True,True,256.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=12).'}]",0.85468674704432
+Classical Brute Force,225,225,True,0,0,0,256,256.0,0,0,0,0,0,0.02,5.1975250244140625e-05,8007,256.0,128.0,256.0,8,,,,,,,
+Standard Grover,225,225,True,12,1536,0,1,1537.0,3770,8,4080,8728,1536,0.02,0.05542707443237305,8007,,,,8,12.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),225,225,True,1,64,0,6,70.0,316,8,340,742,64,0.02,0.00832509994506836,8007,,,,8,,1.0,True,True,256.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=12).'}]",0.7237977205924956
+Classical Brute Force,74,74,True,0,0,0,256,256.0,0,0,0,0,0,0.02,5.2928924560546875e-05,8008,256.0,128.0,256.0,8,,,,,,,
+Standard Grover,74,74,True,12,1536,0,1,1537.0,3770,8,4080,8728,1536,0.02,0.05662703514099121,8008,,,,8,12.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),74,74,True,1,64,0,1,65.0,316,8,340,742,64,0.02,0.009855270385742188,8008,,,,8,,1.0,True,True,256.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=12).'}]",0.7237977205924956
+Classical Brute Force,119,119,True,0,0,0,256,256.0,0,0,0,0,0,0.02,5.2928924560546875e-05,8009,256.0,128.0,256.0,8,,,,,,,
+Standard Grover,119,119,True,12,1536,0,1,1537.0,3770,8,4080,8728,1536,0.02,0.05332779884338379,8009,,,,8,12.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),119,119,True,1,64,0,1,65.0,316,8,340,742,64,0.02,0.008863210678100586,8009,,,,8,,1.0,True,True,256.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=12).'}]",0.7237977205924956
+Classical Brute Force,120,120,True,0,0,0,256,256.0,0,0,0,0,0,0.02,5.078315734863281e-05,8010,256.0,128.0,256.0,8,,,,,,,
+Standard Grover,120,120,True,12,1536,0,1,1537.0,3770,8,4080,8728,1536,0.02,0.05540823936462402,8010,,,,8,12.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),120,120,True,1,64,0,42,106.0,316,8,340,742,64,0.02,0.008862972259521484,8010,,,,8,,1.0,True,True,256.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=12).'}]",0.85468674704432
+Classical Brute Force,203,203,True,0,0,0,256,256.0,0,0,0,0,0,0.02,5.1975250244140625e-05,8011,256.0,128.0,256.0,8,,,,,,,
+Standard Grover,203,203,True,12,1536,0,1,1537.0,3770,8,4080,8728,1536,0.02,0.05816006660461426,8011,,,,8,12.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),203,203,True,1,64,0,49,113.0,316,8,340,742,64,0.02,0.008619546890258789,8011,,,,8,,1.0,True,True,256.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=12).'}]",0.85468674704432
+Classical Brute Force,86,86,True,0,0,0,256,256.0,0,0,0,0,0,0.02,5.1975250244140625e-05,8012,256.0,128.0,256.0,8,,,,,,,
+Standard Grover,86,86,True,12,1536,0,1,1537.0,3770,8,4080,8728,1536,0.02,0.055648088455200195,8012,,,,8,12.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),86,86,True,1,64,0,9,73.0,316,8,340,742,64,0.02,0.008331060409545898,8012,,,,8,,1.0,True,True,256.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=12).'}]",0.7237977205924956
+Classical Brute Force,41,41,True,0,0,0,256,256.0,0,0,0,0,0,0.02,5.1975250244140625e-05,8013,256.0,128.0,256.0,8,,,,,,,
+Standard Grover,41,41,True,12,1536,0,1,1537.0,3770,8,4080,8728,1536,0.02,0.05653786659240723,8013,,,,8,12.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),41,41,True,1,64,0,5,69.0,316,8,340,742,64,0.02,0.008273124694824219,8013,,,,8,,1.0,True,True,256.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=12).'}]",0.7237977205924956
+Classical Brute Force,234,234,True,0,0,0,256,256.0,0,0,0,0,0,0.02,5.125999450683594e-05,8014,256.0,128.0,256.0,8,,,,,,,
+Standard Grover,234,234,True,12,1536,0,1,1537.0,3770,8,4080,8728,1536,0.02,0.05529499053955078,8014,,,,8,12.0,1.0,True,True,,,
+Adaptive Hybrid (Proposed),234,234,True,1,64,0,8,72.0,316,8,340,742,64,0.02,0.009016036987304688,8014,,,,8,,1.0,True,True,256.0,"[{'round': 1, 'strategy': 'Noise-Aware Grover', 'action': 'RUN_QUANTUM', 'iterations': 1, 'shots': 64, 'reason': 'Moderate noise (2.0%) optimized at k=1 (vs k_ideal=12).'}]",0.7237977205924956

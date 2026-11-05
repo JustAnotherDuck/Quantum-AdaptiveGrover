@@ -34,11 +34,13 @@ def format_terminal_report(eval_res: ReadinessEvaluation) -> str:
             lines.append(f"    - Notes: {lit.notes}")
         lines.append("-" * 78)
 
-    lines.extend([
-        " MANDATORY SAFETY & SCIENTIFIC DISCLAIMER:",
-        f"  {eval_res.mandatory_disclaimer}",
-        "=" * 78,
-    ])
+    lines.extend(
+        [
+            " MANDATORY SAFETY & SCIENTIFIC DISCLAIMER:",
+            f"  {eval_res.mandatory_disclaimer}",
+            "=" * 78,
+        ]
+    )
     return "\n".join(lines)
 
 
@@ -55,7 +57,7 @@ def format_html_report(eval_res: ReadinessEvaluation) -> str:
         <div class="literature-item">
             <strong>{lit.paper_title}</strong> ({lit.year})<br>
             <em>{", ".join(lit.authors)}</em> — <code>{lit.venue}</code> (DOI: <a href="https://doi.org/{lit.doi}">{lit.doi}</a>)<br>
-            Logical Qubits: <strong>{lit.logical_qubits:,}</strong> | T-Depth: <strong>{lit.t_depth or 'N/A'}</strong><br>
+            Logical Qubits: <strong>{lit.logical_qubits:,}</strong> | T-Depth: <strong>{lit.t_depth or "N/A"}</strong><br>
             <span class="notes">{lit.notes}</span>
         </div>
         """

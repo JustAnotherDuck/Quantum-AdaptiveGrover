@@ -1,14 +1,20 @@
 """Tests for noise models, fake backends, and noisy decay model fitting."""
 
 import numpy as np
+import pytest
 from qiskit_aer import AerSimulator
 
 from agqca.noise.decay_fit import (
     fit_decay_model,
     optimal_noisy_iterations,
     predict_noisy_success,
+    validate_decay_model_held_out,
 )
-from agqca.noise.fake_backends import get_fake_backend_noise_model, get_fake_backend_properties
+from agqca.noise.fake_backends import (
+    check_backend_capacity,
+    get_fake_backend_noise_model,
+    get_fake_backend_properties,
+)
 from agqca.noise.models import build_depolarizing_noise_model
 from agqca.oracles.grover import build_grover_circuit, ideal_success_probability
 from agqca.oracles.mode_a import MarkedStateOracle
@@ -86,3 +92,30 @@ def test_fake_backend_noise_model_execution() -> None:
     sim = AerSimulator(noise_model=noise_model)
     counts = sim.run(qc, shots=500, seed_simulator=42).result().get_counts()
     assert len(counts) > 0
+
+
+def test_validate_decay_model_held_out() -> None:
+    """Verify out-of-sample held-out validation of decay model across disjoint iteration sets."""
+    n = 4
+    true_f = 0.88
+    # Train set on even iterations, test set on odd iterations
+    train_k = [1, 2, 4, 6]
+    test_k = [3, 5, 7]
+    train_probs = [predict_noisy_success(n, 1, k, true_f) for k in train_k]
+    test_probs = [predict_noisy_success(n, 1, k, true_f) for k in test_k]
+
+    res = validate_decay_model_held_out(train_k, train_probs, test_k, test_probs, num_qubits=n)
+    assert np.isclose(res.train_fidelity, true_f, atol=1e-3)
+    assert res.test_r_squared > 0.99
+    assert res.test_rmse < 1e-3
+    assert res.test_samples == 3
+    assert isinstance(res.to_dict(), dict)
+
+
+def test_check_backend_capacity() -> None:
+    """Verify check_backend_capacity raises ValueError when circuit exceeds backend qubits."""
+    # FakeManilaV2 has 5 qubits
+    assert check_backend_capacity("FakeManilaV2", 5) is True
+    assert check_backend_capacity("FakeManilaV2", 3) is True
+    with pytest.raises(ValueError, match="possesses 5 physical qubits"):
+        check_backend_capacity("FakeManilaV2", 6)

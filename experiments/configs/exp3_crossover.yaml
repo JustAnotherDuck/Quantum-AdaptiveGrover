@@ -1,9 +1,9 @@
 # Experiment 3 Configuration: Crossover Noise Level (Deep Grover vs Shallow + Restart)
 experiment_name: "exp3_crossover"
 description: "Identifies crossover noise level where shallow restart overtakes deep Grover"
-key_size: 4
-noise_sweep: [0.00, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.08, 0.10, 0.15]
-shots: 128
+key_size: 6
+noise_sweep: [0.00, 0.02, 0.05, 0.08, 0.10, 0.12, 0.15, 0.18, 0.20]
+shots: 1
 seeds_small: 15
 seeds_full: 35
 strategies:

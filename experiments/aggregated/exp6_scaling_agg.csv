@@ -1,8 +1,8 @@
-key_size,rounds,qubits_total,depth,two_qubit_gates,total_gates,is_extrapolated
-4,1,9,422,226,583,False
-8,2,17,855,860,2238,False
-12,3,25,1304,1890,4943,False
-16,4,33,1757,3424,8806,False
-32,8,65,3008,12672,38016,True
-64,16,129,6016,50688,152064,True
-128,32,257,12032,202752,608256,True
+target,key_size,rounds,qubits_total,depth,two_qubit_gates,total_gates,source,is_measured
+Mode B SPN (4-bit),4,1,9,422,226,583,Empirical quantum circuit synthesis (this project),True
+Mode B SPN (8-bit),8,2,17,855,860,2238,Empirical quantum circuit synthesis (this project),True
+Mode B SPN (12-bit),12,3,25,1304,1890,4943,Empirical quantum circuit synthesis (this project),True
+Mode B SPN (16-bit),16,4,33,1757,3424,8806,Empirical quantum circuit synthesis (this project),True
+AES-128 (Grassl et al. 2016),128,10,2953,116244,242000,774000,Grassl et al. (2016) published estimate (not produced by this project),False
+AES-128 (Jaques et al. 2020),128,10,1785,164000,195000,598000,Jaques et al. (2020) published estimate (not produced by this project),False
+AES-256 (Jaques et al. 2020),256,14,2689,245000,312000,956000,Jaques et al. (2020) published estimate (not produced by this project),False

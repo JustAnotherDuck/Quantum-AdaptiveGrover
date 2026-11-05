@@ -27,7 +27,9 @@ def analyze(
     key_size: int = typer.Option(128, "--key-size", "-k", help="Cipher key size in bits"),
     known_bits: int = typer.Option(0, "--known-bits", "-b", help="Known/filtered key bits"),
     noise: float = typer.Option(0.001, "--noise", "-n", help="Physical gate error rate"),
-    output_format: str = typer.Option("table", "--format", "-f", help="Output format: table, json, html"),
+    output_format: str = typer.Option(
+        "table", "--format", "-f", help="Output format: table, json, html"
+    ),
     output_file: Optional[str] = typer.Option(None, "--output", "-o", help="Save report to file"),
 ) -> None:
     """Evaluate cryptographic readiness of a cipher under quantum threat."""
@@ -61,13 +63,17 @@ def literature() -> None:
     typer.echo(f"\nLoaded {len(records)} verified literature reference(s):\n")
     for r in records:
         typer.echo(f"• {r.citation_str()}")
-        typer.echo(f"  Logical Qubits: {r.logical_qubits:,} | Grover Iterations: {r.grover_iterations}")
+        typer.echo(
+            f"  Logical Qubits: {r.logical_qubits:,} | Grover Iterations: {r.grover_iterations}"
+        )
         typer.echo(f"  Notes: {r.notes}\n")
 
 
 @app.command()
 def reproduce(
-    mode: str = typer.Option("small", "--mode", "-m", help="Run mode: small (~5 min) or full (~20 min)"),
+    mode: str = typer.Option(
+        "small", "--mode", "-m", help="Run mode: small (~5 min) or full (~20 min)"
+    ),
 ) -> None:
     """Execute end-to-end experiment suite and regenerate all figures and tables."""
     typer.echo(f"Executing reproducible experiment suite in '{mode}' mode...")

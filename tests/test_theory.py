@@ -29,17 +29,20 @@ def test_analytic_optimal_iterations_formula(n_qubits: int, m_marked: int) -> No
     assert p_opt >= p_next - 1e-9
 
 
-@pytest.mark.parametrize("n_qubits, marked_states, k_iterations", [
-    (3, [3], 1),
-    (3, [3], 2),
-    (4, [5], 1),
-    (4, [5], 2),
-    (4, [5], 3),
-    (4, [2, 7], 1),
-    (4, [2, 7], 2),
-    (5, [13], 2),
-    (5, [13], 4),
-])
+@pytest.mark.parametrize(
+    "n_qubits, marked_states, k_iterations",
+    [
+        (3, [3], 1),
+        (3, [3], 2),
+        (4, [5], 1),
+        (4, [5], 2),
+        (4, [5], 3),
+        (4, [2, 7], 1),
+        (4, [2, 7], 2),
+        (5, [13], 2),
+        (5, [13], 4),
+    ],
+)
 def test_noiseless_statevector_matches_theory(
     n_qubits: int,
     marked_states: list[int],

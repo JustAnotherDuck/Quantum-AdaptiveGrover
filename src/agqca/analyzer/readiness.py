@@ -54,7 +54,9 @@ class ReadinessAnalyzer:
 
     def __init__(self, literature_db: Optional[List[LiteratureRecord]] = None) -> None:
         self.literature_db = (
-            literature_db if literature_db is not None else load_literature_database(verified_only=True)
+            literature_db
+            if literature_db is not None
+            else load_literature_database(verified_only=True)
         )
 
     def evaluate(
@@ -81,8 +83,10 @@ class ReadinessAnalyzer:
 
         # Find matching verified literature records
         matched_lit = [
-            r for r in self.literature_db
-            if r.cipher.lower() == cipher_name.lower() or (r.key_size == key_size and "AES" in cipher_name)
+            r
+            for r in self.literature_db
+            if r.cipher.lower() == cipher_name.lower()
+            or (r.key_size == key_size and "AES" in cipher_name)
         ]
 
         # Estimate depth per iteration (approx 200-3000 layers per round)
@@ -103,11 +107,15 @@ class ReadinessAnalyzer:
         elif eff_n <= 32:
             risk_lvl = 4
             risk_lbl = "HIGH THEORETICAL VULNERABILITY (Reduced Key Space)"
-            verdict = "MARGINALLY FEASIBLE: Requires substantial quantum coherence or large filtering."
+            verdict = (
+                "MARGINALLY FEASIBLE: Requires substantial quantum coherence or large filtering."
+            )
         elif eff_n <= 64:
             risk_lvl = 3
             risk_lbl = "MEDIUM RISK (Theoretical Quantum Advantage, Infeasible on NISQ)"
-            verdict = "NISQ-INFEASIBLE: Depth exceeds physical coherence times by orders of magnitude."
+            verdict = (
+                "NISQ-INFEASIBLE: Depth exceeds physical coherence times by orders of magnitude."
+            )
         else:
             risk_lvl = 1
             risk_lbl = "LOW IMMEDIATE RISK (Standard Cryptographic Key Length)"
@@ -134,3 +142,113 @@ class ReadinessAnalyzer:
                 "depth_per_iteration": depth_per_iter,
             },
         )
+
+
+@dataclass
+class CipherReadinessReport:
+    """Detailed cryptographic cipher readiness report aligned with API schema."""
+
+    cipher_name: str
+    key_size: int
+    block_size: int
+    ideal_grover_iterations_exp: int
+    logical_qubits_required: int
+    circuit_depth_estimate: int
+    two_qubit_gates: int
+    total_gates: int
+    physical_error_rate: float
+    circuit_survival_probability: float
+    nisq_feasibility_verdict: str
+    literature_source: str
+    disclaimer: str = SAFETY_DISCLAIMER
+
+
+def evaluate_cipher_readiness(
+    cipher_name: str,
+    physical_gate_error: float = 0.001,
+    surface_code_threshold: float = 0.01,
+) -> CipherReadinessReport:
+    """Evaluate cipher quantum attack feasibility against verified literature and NISQ limits."""
+    name_upper = cipher_name.upper()
+    if "AES-128" in name_upper:
+        key_size = 128
+        block_size = 128
+        ideal_exp = 64
+        logical_qubits = 1785
+        depth = 1416000000000000000000
+        two_q = 54400 * 11800000000000000000
+        total_g = 120000 * 11800000000000000000
+        survival = 0.0
+        verdict = (
+            "Infeasible on NISQ: Depth (~10^21) and logical qubit requirement (1,785-2,953) "
+            "exceed NISQ limits by over 18 orders of magnitude. Requires fault-tolerant quantum computing."
+        )
+        source = "Jaques et al. (EUROCRYPT 2020) & Grassl et al. (PQCrypto 2016)"
+    elif "AES-192" in name_upper:
+        key_size = 192
+        block_size = 128
+        ideal_exp = 96
+        logical_qubits = 4449
+        depth = 4488 * 18900000000000000000000000000
+        two_q = 1428480 * 18900000000000000000000000000
+        total_g = 2000000 * 18900000000000000000000000000
+        survival = 0.0
+        verdict = (
+            "Infeasible on NISQ: Depth (~10^31) and logical qubit requirement (4,449) "
+            "far exceed any near-term quantum system. Requires fault-tolerant quantum computing."
+        )
+        source = "Grassl et al. (PQCrypto 2016)"
+    elif "AES-256" in name_upper:
+        key_size = 256
+        block_size = 128
+        ideal_exp = 128
+        logical_qubits = 6681
+        depth = 5236 * 2420000000000000000000000000000000000000
+        two_q = 1666560 * 2420000000000000000000000000000000000000
+        total_g = 3000000 * 2420000000000000000000000000000000000000
+        survival = 0.0
+        verdict = (
+            "Infeasible on NISQ: Depth (~10^41) and logical qubit requirement (6,681) "
+            "far exceed physical coherence limits. Requires fault-tolerant quantum computing."
+        )
+        source = "Grassl et al. (PQCrypto 2016)"
+    elif "S-AES" in name_upper:
+        key_size = 16
+        block_size = 16
+        ideal_exp = 8
+        logical_qubits = 24
+        depth = 40200
+        two_q = 1500
+        total_g = 4200
+        survival = float(max(0.0, (1.0 - physical_gate_error) ** min(depth, 50000)))
+        verdict = "Feasible in Simulation / Scaled NISQ Benchmark: Infeasible on NISQ without error mitigation due to depth."
+        source = "Feldhofer et al. (Reduced S-AES Benchmark)"
+    else:
+        key_size = 16
+        block_size = 16
+        ideal_exp = 8
+        logical_qubits = 16
+        depth = 5000
+        two_q = 400
+        total_g = 1200
+        survival = float(max(0.0, (1.0 - physical_gate_error) ** min(depth, 50000)))
+        verdict = (
+            "Feasible in Simulation / Scaled NISQ Benchmark: Infeasible on NISQ for long depths."
+        )
+        source = "Heys (1996) / AGQCA Benchmark Suite"
+
+    return CipherReadinessReport(
+        cipher_name=cipher_name,
+        key_size=key_size,
+        block_size=block_size,
+        ideal_grover_iterations_exp=ideal_exp,
+        logical_qubits_required=logical_qubits,
+        circuit_depth_estimate=min(depth, 2**63 - 1),
+        two_qubit_gates=min(two_q, 2**63 - 1),
+        total_gates=min(total_g, 2**63 - 1),
+        physical_error_rate=physical_gate_error,
+        circuit_survival_probability=survival,
+        nisq_feasibility_verdict=verdict,
+        literature_source=source,
+        disclaimer=SAFETY_DISCLAIMER,
+    )

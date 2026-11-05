@@ -23,11 +23,20 @@ def generate_illustrative_plots() -> None:
     classical_cost = n_space / 2.0
     grover_ideal = (np.pi / 4.0) * np.sqrt(n_space)
 
-    plt.style.use("seaborn-v0_8-colorblind" if "seaborn-v0_8-colorblind" in plt.style.available else "default")
+    plt.style.use(
+        "seaborn-v0_8-colorblind" if "seaborn-v0_8-colorblind" in plt.style.available else "default"
+    )
     fig, ax = plt.subplots(figsize=(6, 4), dpi=300)
 
     ax.plot(n_bits, classical_cost, label="Classical Exhaustive Search O(N)", color="#d95f02", lw=2)
-    ax.plot(n_bits, grover_ideal, label="Ideal Grover Search O(√N)", color="#7570b3", lw=2, linestyle="--")
+    ax.plot(
+        n_bits,
+        grover_ideal,
+        label="Ideal Grover Search O(√N)",
+        color="#7570b3",
+        lw=2,
+        linestyle="--",
+    )
 
     ax.set_yscale("log")
     ax.set_xlabel("Key Length n (bits)")
@@ -38,9 +47,16 @@ def generate_illustrative_plots() -> None:
 
     # Watermark
     ax.text(
-        0.5, 0.5, "Illustrative Expected Trend\n(Theoretical Asymptotic)",
-        transform=ax.transAxes, fontsize=14, color="gray", alpha=0.3,
-        ha="center", va="center", rotation=25
+        0.5,
+        0.5,
+        "Illustrative Expected Trend\n(Theoretical Asymptotic)",
+        transform=ax.transAxes,
+        fontsize=14,
+        color="gray",
+        alpha=0.3,
+        ha="center",
+        va="center",
+        rotation=25,
     )
 
     fig.tight_layout()

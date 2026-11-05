@@ -38,3 +38,9 @@ configurations:
     no_adaptivity: true
     no_noise_awareness: true
     no_restart: true
+  - name: "Null Control: Random Guessing"
+    no_filtering: true
+    no_adaptivity: true
+    no_noise_awareness: true
+    no_restart: false
+    null_control: true

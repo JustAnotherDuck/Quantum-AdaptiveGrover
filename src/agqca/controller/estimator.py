@@ -37,7 +37,9 @@ class OnlineFidelityEstimator:
         self.beta = prior_beta
         self.estimated_fidelity = 1.0
 
-    def update(self, successes: int, trials: int, k_iterations: int, num_qubits: int) -> BayesianEstimate:
+    def update(
+        self, successes: int, trials: int, k_iterations: int, num_qubits: int
+    ) -> BayesianEstimate:
         """Update posterior belief after measuring 'trials' with 'successes'."""
         self.alpha += float(successes)
         self.beta += float(trials - successes)

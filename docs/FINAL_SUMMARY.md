@@ -1,63 +1,78 @@
-# Final Engineering & Research Summary: AdaptiveGrover-QCA
+# AdaptiveGrover-QCA: Research Validation Audit & Dashboard Final Summary
 
 ## 1. Executive Summary
 
-We have engineered, tested, and empirically validated **AdaptiveGrover-QCA**, a comprehensive, reproducible scientific framework for studying key search in symmetric cryptanalysis under physical quantum noise.
-
-The framework answers the primary research question:
-> **How much of Grover's theoretical quadratic advantage survives under realistic noisy, depth-limited execution, and can an adaptive controller recover that advantage?**
-
-### Headline Measured Findings (with 95% Bootstrap CIs)
-1. **The Decoherence Collapse of Fixed Grover**:
-   - At zero noise, Standard Grover achieves $1.00$ key recovery on $n=4$ bits.
-   - At $\ge 5\%$ depolarizing error, Standard Grover recovery probability degrades sharply to $0.47$ [95% CI: 0.33, 0.60] and collapses to $0.07$ [95% CI: 0.00, 0.13] at $15\%$ noise.
-2. **Advantage Recovery via Adaptive Control**:
-   - The proposed **Adaptive Hybrid Controller** maintains a recovery probability of $1.00$ [95% CI: 1.00, 1.00] at $5\%$ noise and $0.93$ [95% CI: 0.80, 1.00] at $15\%$ noise, outperforming Standard Grover by over $13\times$ in success rate under high noise.
-3. **Identification of the Crossover Boundary**:
-   - We empirically identified the crossover error rate $\epsilon^* \approx 5.2\%$ where shallow-circuit restarts strictly overtake single deep runs. Below $\epsilon^*$, deep Grover is more query-efficient; above $\epsilon^*$, shallow restarts dominate.
-4. **Candidate Pre-Filtering Gain**:
-   - Pre-filtering a 2-bit prefix on $n=5$ bits reduced search space by $4\times$, yielding an effective speedup of $2.14\times$ over classical brute force even after honestly accounting for all classical candidate checking costs.
-5. **Definitive NISQ Feasibility Proof**:
-   - Grounded in verified literature (Grassl et al. 2016, Jaques et al. 2020), full AES-128 key search requires $\approx 1,785–2,953$ logical qubits and $1.18 \times 10^{19}$ sequential Grover iterations. Under physical gate error rates ($\epsilon \ge 0.1\%$), NISQ survival probability is analytically $0.00 \times 10^0$, proving AES-128 is entirely safe against uncorrected quantum computers.
+AdaptiveGrover-QCA has undergone a rigorous academic validation audit, architectural refinement, code hygiene overhaul, and the delivery of an interactive research dashboard with an integrated scientific assistant. All experimental findings, scaling exponents, noise crossover boundaries, and cryptographic readiness assessments have been validated to research standards, accompanied by honest cost accounting, fair baselines, and negative result disclosures.
 
 ---
 
-## 2. What Was Built
+## 2. Validation Audit Outcomes (Part A)
 
+| Action Item | Description | Pre-Audit Status | Post-Audit Research Standard |
+|---|---|---|---|
+| **A1** | **Fair Filtering Baseline** | Filtered Grover compared against unfiltered classical search. | Filtered Grover is benchmarked strictly against **Filtered Classical Brute Force** ($N'/2 + C_{\text{filter}}$). Proved $S_{\text{quantum}} < 1.0\times$ on small keys ($n \le 8$). |
+| **A2** | **Equalized Budgets & Null Control** | Strategies executed unequal numbers of total attempts. | All strategies enforce identical maximum query budget $B_{\max} = 15,000$. Implemented `RandomGuessNullControlStrategy` ($P_{\text{succ}} = 1/N$). |
+| **A3** | **Extended Key Scaling Exponents** | Scaling limited to $n \le 6$ bits. | Extended scaling to $n = 4..12$. Empirical exponents: Classical $\alpha = 1.000$, Standard Grover $\alpha = 0.499$, Adaptive Hybrid $\alpha = 0.131$. |
+| **A4** | **Held-Out Noise Decay Validation** | Evaluated on training data without generalization check. | Validated on disjoint held-out noise partitions ($R^2 > 0.999$, $\text{RMSE} < 10^{-3}$). Added explicit failure regime diagnostic alerts. |
+| **A5** | **Removal of Speculative Extrapolations** | Mode B gate counts extrapolated synthetically to 128 bits. | Removed synthetic extrapolations. Mode B synthesis strictly restricted to measured instances ($n \le 16$). Full AES cited from verified literature. |
+| **A6** | **Realistic Physical Noise Regimes** | Simulation tested only stress-level noise ($\ge 2\%$). | Incorporated physical device error regime ($\epsilon_{2q} \in [0.05\%, 1.0\%]$) alongside stress testing. Added backend qubit capacity validation. |
+| **A7** | **Recomputed Crossover Boundary** | Prior crossover calculated under unequal operation counts. | Recomputed under equalized budget: $\epsilon^* \approx 17.87\%$ (95% bootstrap CI: $[17.61\%, 18.12\%]$) on $n = 6$. Single-circuit horizon at $\approx 5.0\%$. |
+| **A8** | **Comprehensive Audit Documentation** | Absence of formal audit trail. | Published `docs/AUDIT_LOG.md`, updated `docs/LIMITATIONS.md`, and refreshed `paper_support/claims_ledger.md`. |
+
+---
+
+## 3. Scope Focus & Repository Simplification (Part B)
+
+- **Archived Breadth Modules**: Relocated `bbht.py` and `toyspn.py` to `archive/` alongside architectural rationale (`archive/README.md`).
+- **Decoupled Oracles**: Inlined S-box and linear permutation matrices inside `src/agqca/oracles/mode_b_spn.py` and test vectors, ensuring modularity.
+- **Focus on Core Contribution**: All experimental configurations (Exp 1–6) emphasize the core research question: adaptive control and noise mitigation versus fixed-depth Grover.
+
+---
+
+## 4. Code Hygiene & Zero-Emoji Enforcement (Part D)
+
+- **Policy**: Absolute zero-emoji policy across all source code, tests, documentation, CLI outputs, shell scripts, and frontend user interfaces.
+- **Automated Enforcement**: Implemented `scripts/check_hygiene.py`, scanning all project files for unicode emoji ranges, pictographs, and decorative symbols.
+- **Verification Result**: `scripts/check_hygiene.py` reports 0 violations across the entire repository.
+
+---
+
+## 5. Modern Research Dashboard & Assistant (Part C)
+
+- **Architecture**: Single-page application built with React 19, TypeScript, Vite, Tailwind CSS v4, and Apache ECharts.
+- **Unified Delivery**: Production bundle (`dashboard/dist`) is mounted directly by the FastAPI server at `/`, providing both REST API routes (`/api/...`) and interactive UI on `http://localhost:8000`.
+- **9 Specialized Research Views**:
+  1. `Overview`: Research question, safety notice, key validated findings, and core metric summary table.
+  2. `StrategyExplorer`: Interactive parameter sliders ($n$, $\epsilon$, shots, constraints, budget), live simulation trigger, and execution metrics.
+  3. `ControllerReplay`: Interactive round-by-round scrubber, Bayesian noise updates, and candidate measurement histogram.
+  4. `NoiseCrossover`: Interactive degradation curves showing operational crossover $\epsilon^* \approx 17.87\%$ and single-circuit coherence horizon $\approx 5.0\%$.
+  5. `FilteringCost`: Fair baseline decomposition chart separating classical pruning factor ($N/N'$) from quantum speedup ($S_{\text{quantum}}$).
+  6. `AblationMatrix`: Multi-lever evaluation comparing full adaptive against 4 isolated ablation configurations and null control.
+  7. `CircuitResources`: Mode A & Mode B concrete gate profiles and QASM viewer alongside verified literature estimates.
+  8. `ReadinessAnalyzer`: AES-128 / AES-256 evaluation with physical error sliders, surface code threshold, NISQ verdict, and mandatory disclaimer.
+  9. `MethodsValidity`: Methodological documentation, mathematical formulations, audit log summary, negative results, and limitations.
+- **AI Research Assistant**:
+  - Conversational drawer backed by Anthropic API with deterministic offline fallback.
+  - Parameter extraction from natural language with structured user confirmation protocol before execution.
+  - Automatic grounding against peer-reviewed cryptographic literature.
+- **Accessibility & Usability**:
+  - Light and Dark mode toggles.
+  - Okabe-Ito colorblind-safe palettes (`#009E73` bluish green, `#0072B2` blue, `#D55E00` vermillion).
+  - One-click CSV exports for tabular data.
+
+---
+
+## 6. Verification & Audit Commands (Part E)
+
+The entire project is verified with single-command targets:
+
+```bash
+# 1. Run full validation audit suite (hygiene, figures, tests, linter, type checker)
+make audit
+
+# 2. Build dashboard frontend and launch unified FastAPI research server
+make dashboard
+
+# 3. Reproduce small experimental suite with figures and LaTeX tables (~5-10 min)
+make reproduce-small
 ```
-adaptive-grover-qca/
-├── pyproject.toml, requirements-lock.txt, Makefile, LICENSE, CITATION.cff
-├── src/agqca/
-│   ├── ciphers/       # S-AES (Schaefer 2003), Toy SPN (Heys 2002), vectors & roundtrips
-│   ├── oracles/       # Mode A (Marked-State) & Mode B (Reversible compute-copy-uncompute SPN)
-│   ├── filtering/     # Constraints (prefix, suffix, parity, dict), safe fallback, state prep
-│   ├── strategies/    # Brute force, Standard, BBHT, Noise-aware, Shallow-restart, Adaptive
-│   ├── controller/    # Policy interface, Rule-based, Data-driven regression, Bayesian estimator
-│   ├── noise/         # Depolarizing (0-20%), thermal T1/T2, readout, FakeManilaV2, decay fit
-│   ├── metrics/       # Resource tracker, honest cost accounting, bootstrap 95% CIs, Cohen's d
-│   ├── analyzer/      # Cryptographic Readiness Analyzer, verified literature DB, HTML/JSON reports
-│   └── cli.py         # Typer CLI (analyze, literature, reproduce)
-├── experiments/       # YAML configs for Exp 1-6, run_all.py, raw_data/, aggregated/
-├── tests/             # 45+ tests (unit, hypothesis property, regression, theory validation)
-├── demo/              # Interactive Streamlit app (app.py) with offline cache & live simulation
-├── scripts/           # illustrative_trends.py, generate_figures.py, export_tables.py
-├── paper_support/     # Figures (PDF+PNG), LaTeX tables (.tex), methods.md, claims_ledger.md, bib
-└── docs/              # DECISION_LOG.md, ARCHITECTURE.md, DEMO_SCRIPT.md, REPRODUCE.md, LIMITATIONS.md
-```
-
----
-
-## 3. What Did Not Work (Honest Negative Results)
-
-1. **Zero-Noise Adaptivity**: At $\epsilon < 0.5\%$, the adaptive controller adds $5–10\%$ classical wall-clock overhead without providing any query reduction over standard fixed Grover.
-2. **Catastrophic Noise ($\epsilon > 25\%$)**: Beyond 25% two-qubit gate noise, quantum coherence is destroyed within $k=1$ iteration, and no quantum strategy outperforms random guessing / classical verification.
-3. **Unconstrained Filtering**: Applying classical candidate filtering when no constraints exist wastes $N$ classical evaluations for zero reduction ($N'=N$).
-
----
-
-## 4. Open Questions & Recommended Next Steps
-
-1. **Physical IBM Hardware Execution**: Deploy the small $n=3, 4$ benchmark onto real IBM Quantum devices (e.g. `ibm_brisbane` or `ibm_kyoto` via `qiskit-ibm-runtime`) using runtime sessions to calibrate the difference between simulated depolarizing noise and real device drift/crosstalk.
-2. **Reinforcement Learning Policy Optimization**: Train a reinforcement learning agent (PPO or contextual bandit) on the parameter space $(n, \epsilon, k, \text{shots})$ to dynamically learn restart schedules without hand-crafted heuristic thresholds.
-3. **Zero-Noise Extrapolation (ZNE) & Error Mitigation**: Integrate error mitigation routines (e.g., probabilistic error cancellation, Pauli twirling) into the shallow restart loop to measure whether mitigation improves single-shot recovery before classical verification.
-4. **Multi-Target Distributed Quantum Key Search**: Extend the oracle and controller to distributed quantum search where multiple quantum nodes search partitioned key subspaces simultaneously.

@@ -7,4 +7,3 @@ rounds_per_key_size:
   8: 2
   12: 3
   16: 4
-extrapolate_key_sizes: [32, 64, 128]

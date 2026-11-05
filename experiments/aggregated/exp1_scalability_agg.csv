@@ -1,10 +1,10 @@
-key_size,strategy,success_rate,success_ci_low,success_ci_high,mean_total_cost,cost_ci_low,cost_ci_high,mean_oracle_calls,mean_depth,speedup_over_classical
-3,Adaptive Hybrid (Proposed),1.0,1.0,1.0,65.0,65.0,65.0,64.0,24.0,0.06153846153846154
-3,Classical Brute Force,1.0,1.0,1.0,8.0,8.0,8.0,0.0,0.0,0.5
-3,Standard Grover,1.0,1.0,1.0,257.0,257.0,257.0,256.0,46.0,0.01556420233463035
-4,Adaptive Hybrid (Proposed),1.0,1.0,1.0,65.0,65.0,65.0,64.0,54.0,0.12307692307692308
-4,Classical Brute Force,1.0,1.0,1.0,16.0,16.0,16.0,0.0,0.0,0.5
-4,Standard Grover,1.0,1.0,1.0,385.0,385.0,385.0,384.0,158.0,0.02077922077922078
-5,Adaptive Hybrid (Proposed),1.0,1.0,1.0,65.0,65.0,65.0,64.0,130.0,0.24615384615384617
-5,Classical Brute Force,1.0,1.0,1.0,32.0,32.0,32.0,0.0,0.0,0.5
-5,Standard Grover,1.0,1.0,1.0,513.0,513.0,513.0,512.0,514.0,0.031189083820662766
+key_size,strategy,success_rate,success_ci_low,success_ci_high,mean_total_cost,cost_ci_low,cost_ci_high,mean_depth,speedup_over_classical,scaling_alpha
+4,Classical Brute Force,1.0,1.0,1.0,16.0,16.0,16.0,0.0,0.5,1.0000000000000002
+6,Classical Brute Force,1.0,1.0,1.0,64.0,64.0,64.0,0.0,0.5,1.0000000000000002
+8,Classical Brute Force,1.0,1.0,1.0,256.0,256.0,256.0,0.0,0.5,1.0000000000000002
+4,Standard Grover,1.0,1.0,1.0,385.0,385.0,385.0,158.0,0.02077922077922078,0.4992967035271276
+6,Standard Grover,1.0,1.0,1.0,769.0,769.0,769.0,1214.0,0.04161248374512354,0.4992967035271276
+8,Standard Grover,1.0,1.0,1.0,1537.0,1537.0,1537.0,3770.0,0.08327911515940144,0.4992967035271276
+4,Adaptive Hybrid (Proposed),1.0,1.0,1.0,65.0,65.0,65.0,54.0,0.12307692307692308,0.13100305634341286
+6,Adaptive Hybrid (Proposed),1.0,1.0,1.0,65.0,65.0,65.0,204.0,0.49230769230769234,0.13100305634341286
+8,Adaptive Hybrid (Proposed),1.0,1.0,1.0,93.46666666666667,78.26166666666667,114.54333333333328,316.0,1.369472182596291,0.13100305634341286

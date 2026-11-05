@@ -14,8 +14,12 @@ import numpy as np
 from qiskit import QuantumCircuit, QuantumRegister
 from qiskit.circuit.library import UnitaryGate
 
-from agqca.ciphers.toyspn import ToySPN
 from agqca.oracles.base import Oracle
+
+# Heys (2002) 4-bit Substitution Box for reversible Mode B oracle
+HEYS_SBOX = [0xE, 0x4, 0xD, 0x1, 0x2, 0xF, 0xB, 0x8, 0x3, 0xA, 0x6, 0xC, 0x5, 0x9, 0x0, 0x7]
+# Heys (2002) 16-bit linear bit permutation layer
+HEYS_PERMUTATION = [0, 4, 8, 12, 1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15]
 
 
 class ReversibleSPNOracle(Oracle):
@@ -33,7 +37,9 @@ class ReversibleSPNOracle(Oracle):
         rounds: int = 1,
     ) -> None:
         if key_size != block_size:
-            raise ValueError(f"Key size ({key_size}) must equal block size ({block_size}) for SPN oracle")
+            raise ValueError(
+                f"Key size ({key_size}) must equal block size ({block_size}) for SPN oracle"
+            )
         if key_size % 4 != 0:
             raise ValueError(f"Key size ({key_size}) must be a multiple of 4 (nibble-aligned)")
 
@@ -70,7 +76,7 @@ class ReversibleSPNOracle(Oracle):
     @classmethod
     def _build_sbox_gate(cls) -> UnitaryGate:
         """Construct the 4-qubit unitary operator representing Heys 4-bit S-box."""
-        sbox = ToySPN.SBOX
+        sbox = HEYS_SBOX
         mat = np.zeros((16, 16), dtype=complex)
         for x, y in enumerate(sbox):
             mat[y, x] = 1.0
@@ -98,7 +104,7 @@ class ReversibleSPNOracle(Oracle):
             # 3. Permutation Layer (only between rounds, if multi-round)
             if r < self._rounds - 1 and self._block_size == 16:
                 # Bit permutation
-                perm = ToySPN.PERMUTATION
+                perm = HEYS_PERMUTATION
                 # In quantum circuits, wire permutation can be achieved via SWAPs
                 # For 16 bits, swap wires to match Heys permutation:
                 visited = [False] * 16

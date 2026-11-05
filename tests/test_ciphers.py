@@ -3,8 +3,7 @@
 import pytest
 
 from agqca.ciphers.saes import SimplifiedAES
-from agqca.ciphers.toyspn import ToySPN
-from agqca.ciphers.vectors import SAES_VECTORS, TOYSPN_VECTORS, verify_cipher_roundtrip
+from agqca.ciphers.vectors import SAES_VECTORS, verify_cipher_roundtrip
 
 
 def test_saes_schaefer_official_vector() -> None:
@@ -43,26 +42,12 @@ def test_saes_out_of_bounds() -> None:
         cipher.decrypt(-1, 0x1234)
 
 
-def test_toyspn_vectors() -> None:
-    """Verify Toy SPN vectors."""
-    cipher = ToySPN()
-    for vec in TOYSPN_VECTORS:
-        ct = cipher.encrypt(vec.plaintext, vec.key)
-        assert ct == vec.expected_ciphertext
-        pt = cipher.decrypt(ct, vec.key)
-        assert pt == vec.plaintext
-
-
-def test_toyspn_roundtrip_random() -> None:
-    """Verify Toy SPN encrypt-decrypt roundtrip over 100 pseudo-random inputs."""
-    cipher = ToySPN()
-    assert verify_cipher_roundtrip(cipher, num_trials=100, seed=54321)
-
-
-def test_toyspn_out_of_bounds() -> None:
-    """Verify Toy SPN boundary checks."""
-    cipher = ToySPN()
-    with pytest.raises(ValueError):
-        cipher.encrypt(0x10000, 0x1234)
-    with pytest.raises(ValueError):
-        cipher.encrypt(0x1234, 0x10000)
+def test_saes_gf16_and_nibbles() -> None:
+    """Verify GF(2^4) multiplication and nibble transformation primitives."""
+    # Test GF(2^4) multiplication: 0x4 * 0x4 in x^4 + x + 1
+    # 0b0100 * 0b0100 = 0b10000 = 0b10011 ^ 0b00011 = 0x3
+    res = SimplifiedAES.gf16_mult(0x4, 0x4)
+    assert res == 0x3
+    # Test identity
+    assert SimplifiedAES.gf16_mult(0x7, 0x1) == 0x7
+    assert SimplifiedAES.gf16_mult(0x9, 0x0) == 0x0

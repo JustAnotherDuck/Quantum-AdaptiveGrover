@@ -58,3 +58,21 @@ def test_all_report_formats_contain_disclaimer() -> None:
 
     html = format_html_report(res)
     assert "EXPERIMENTAL ESTIMATE ONLY" in html
+
+
+def test_readiness_intermediate_sizes() -> None:
+    analyzer = ReadinessAnalyzer()
+    res24 = analyzer.evaluate("Custom-24", 24)
+    assert res24.quantum_risk_level == 4
+    assert "MARGINALLY FEASIBLE" in res24.feasibility_verdict
+
+    res48 = analyzer.evaluate("Custom-48", 48)
+    assert res48.quantum_risk_level == 3
+    assert "MEDIUM RISK" in res48.quantum_risk_label
+
+
+def test_literature_database_all_records() -> None:
+    records = load_literature_database(verified_only=False)
+    assert len(records) >= 4
+    for r in records:
+        assert r.citation_str() != ""

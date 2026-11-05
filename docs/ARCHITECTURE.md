@@ -57,30 +57,30 @@ AdaptiveGrover-QCA integrates four synergistic levers:
 
 ### 2.1 Ciphers (`agqca.ciphers`)
 - **`Cipher` Base Class**: Defines `encrypt(plaintext, key)`, `decrypt(ciphertext, key)`, `key_size`, `block_size`, and validation methods.
-- **`SimplifiedAES` (S-AES)**: 16-bit block cipher with 16-bit key. Implements NibbleSub via GF($2^4$) inversion, ShiftRows, MixColumns (matrix multiplication in GF($2^4$)), and AddRoundKey across 2 rounds. Includes standard test vectors.
-- **`ToySPN`**: 16-bit Substitution-Permutation Network cipher. Implements 4 rounds of four 4-bit S-boxes with bit-level permutation diffusion and round key mixing.
+- **`SimplifiedAES` (S-AES)**: 16-bit block cipher with 16-bit key. Implements NibbleSub via GF($2^4$) inversion, ShiftRows, MixColumns (matrix multiplication in GF($2^4$)), and AddRoundKey across 2 rounds. Validated against published Schaefer (2003) test vectors.
+- **Archived Pedagogical SPN (`archive/toyspn.py`)**: Howard Heys's 16-bit pedagogical SPN reference implementation preserved in `archive/` for historical provenance.
 
 ### 2.2 Oracles (`agqca.oracles`)
-- **Mode A (`MarkedStateOracle`)**: Multi-controlled phase oracle built from the precomputed valid key indices. Ideal for statistical sweeps ($n \le 16$).
-- **Mode B (`ReversibleCipherOracle`)**: Fully reversible quantum circuit implementing $U_f: |k\rangle |0\rangle |-\rangle \to |k\rangle |0\rangle (-1)^{[E_k(P)=C]}|-\rangle$. Computes cipher, compares against ciphertext $C$ using ancilla flag, and uncomputes cipher state to leave ancillae clean.
+- **Mode A (`MarkedStateOracle`)**: Multi-controlled phase oracle built from precomputed target key indices. Ideal for statistical sweeps ($n \le 12$) and noise sensitivity benchmarking.
+- **Mode B (`ReversibleSPNOracle`)**: Fully reversible quantum circuit implementing $U_f: |k\rangle |0\rangle |-\rangle \to |k\rangle |0\rangle (-1)^{[E_k(P)=C]}|-\rangle$. Computes cipher, compares against ciphertext $C$ using an ancilla flag, and uncomputes cipher state to leave ancillae clean. Evaluated at measured key sizes $n \in \{4, 8, 12, 16\}$.
 
 ### 2.3 Noise Engine (`agqca.noise`)
-- Configurable noise channels:
-  - Depolarizing 1-qubit and 2-qubit errors ($0\% \le \epsilon \le 20\%$)
-  - Readout bit-flip errors
-  - Thermal relaxation ($T_1, T_2$)
-  - IBM Fake Backends (`FakeManila`, `FakeSherbrooke`)
+- Parameterized depolarizing, readout, and thermal relaxation ($T_1, T_2$) models.
+- **Realistic NISQ Regime**: Two-qubit gate error rates $\epsilon_{2q} \in [0.05\%, 1.0\%]$ reflecting current superconducting transmon and trapped-ion hardware.
+- **Stress-Test Regime**: $\epsilon_{2q} \in [2.0\%, 20.0\%]$ evaluating resilience against severe decoherence.
+- Hardware-calibrated IBM fake backends (`FakeManilaV2`, `FakeSherbrooke`) with strict qubit capacity verification.
 - **Semi-Analytic Decay Model**:
   $$p_{\text{noisy}}(k) = p_{\text{ideal}}(k) \cdot F^k + \frac{1 - F^k}{N}$$
 
 ### 2.4 Search Strategies (`agqca.strategies`)
-All strategies inherit from `BaseStrategy`:
-- `ClassicalBruteForceStrategy`
-- `StandardGroverStrategy`
-- `BBHTStrategy` (Boyer-Brassard-Høyer-Tapp for unknown $M$)
-- `NoiseAwareGroverStrategy` ($\min k / p_{\text{noisy}}(k)$)
-- `ShallowRestartStrategy` ($k \le k_{\text{shallow}} \ll k_{\text{ideal}}$)
-- `AdaptiveHybridStrategy` (Full controller integration)
+All strategies inherit from `BaseStrategy` with equalized total call budgets $B_{\max}$:
+- `ClassicalBruteForceStrategy`: Uniform exhaustive search (unfiltered and filtered).
+- `RandomGuessNullControlStrategy`: Pure blind random sampling with verification baseline.
+- `StandardGroverStrategy`: Fixed optimal iterations ($k \approx \frac{\pi}{4}\sqrt{N}$).
+- `NoiseAwareGroverStrategy`: Optimizes iteration count $k^* = \arg\min_k \frac{k}{p_{\text{noisy}}(k)}$.
+- `ShallowRestartStrategy`: Depth-capped shallow Grover ($k_{\text{shallow}} \ll k_{\text{ideal}}$) with repeated classical restarts.
+- `AdaptiveHybridStrategy`: Full 4-lever controller with online Bayesian fidelity estimation and dynamic policy actions.
+- *Note*: Boyer-Brassard-Høyer-Tapp (`BBHTStrategy`) is archived in `archive/bbht.py` as symmetric key search typically addresses known $M=1$ marked keys.
 
 ### 2.5 Metrics & Accounting (`agqca.metrics`)
 Every run tracks:

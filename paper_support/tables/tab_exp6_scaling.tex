@@ -1,18 +1,18 @@
 \begin{table}[htbp]
 \centering
-\caption{Reversible SPN Circuit Resource Scaling (Mode B). Asterisk (*) indicates extrapolated values.}
+\caption{Reversible SPN Circuit Resource Scaling (Mode B Measured $n \le 16$) and Published Literature Reference.}
 \label{tab:exp6_scaling}
-\begin{tabular}{rccccc}
+\begin{tabular}{lccccc}
 \hline
-\textbf{Key ($n$)} & \textbf{Rounds} & \textbf{Total Qubits} & \textbf{Transpiled Depth} & \textbf{2Q Gates (CX)} & \textbf{Status} \\
+\textbf{Target} & \textbf{Key ($n$)} & \textbf{Qubits} & \textbf{Depth} & \textbf{2Q Gates (CX)} & \textbf{Type} \\
 \hline
-4 & 1 & 9 & 422 & 226 & Measured \\
-8 & 2 & 17 & 855 & 860 & Measured \\
-12 & 3 & 25 & 1304 & 1890 & Measured \\
-16 & 4 & 33 & 1757 & 3424 & Measured \\
-32 & 8 & 65 & 3008 & 12672 & Extrapolated* \\
-64 & 16 & 129 & 6016 & 50688 & Extrapolated* \\
-128 & 32 & 257 & 12032 & 202752 & Extrapolated* \\
+Mode B SPN (4-bit) & 4 & 9 & 422 & 226 & Measured \\
+Mode B SPN (8-bit) & 8 & 17 & 855 & 860 & Measured \\
+Mode B SPN (12-bit) & 12 & 25 & 1304 & 1890 & Measured \\
+Mode B SPN (16-bit) & 16 & 33 & 1757 & 3424 & Measured \\
+AES-128 (Grassl et al. 2016) & 128 & 2953 & 116244 & 242000 & Published Literature \\
+AES-128 (Jaques et al. 2020) & 128 & 1785 & 164000 & 195000 & Published Literature \\
+AES-256 (Jaques et al. 2020) & 256 & 2689 & 245000 & 312000 & Published Literature \\
 \hline
 \end{tabular}
 \end{table}

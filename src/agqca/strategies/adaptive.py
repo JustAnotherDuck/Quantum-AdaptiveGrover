@@ -177,14 +177,16 @@ class AdaptiveHybridStrategy(BaseStrategy):
             k = max(1, action.iterations)
             shots = max(1, min(action.shots, 128))
 
-            decisions_log.append({
-                "round": rounds_executed,
-                "strategy": action.strategy_name,
-                "action": action.action_type.value,
-                "iterations": k,
-                "shots": shots,
-                "reason": action.reason,
-            })
+            decisions_log.append(
+                {
+                    "round": rounds_executed,
+                    "strategy": action.strategy_name,
+                    "action": action.action_type.value,
+                    "iterations": k,
+                    "shots": shots,
+                    "reason": action.reason,
+                }
+            )
 
             total_iterations += k
             total_oracle_calls += k * shots
@@ -193,11 +195,15 @@ class AdaptiveHybridStrategy(BaseStrategy):
             qc = build_grover_circuit(oracle, iterations=k, measure=True)
             last_stats = CircuitResourceTracker.analyze_circuit(qc)
 
-            counts = sim.run(
-                qc,
-                shots=shots,
-                seed_simulator=rng.randint(1, 10000000),
-            ).result().get_counts()
+            counts = (
+                sim.run(
+                    qc,
+                    shots=shots,
+                    seed_simulator=rng.randint(1, 10000000),
+                )
+                .result()
+                .get_counts()
+            )
 
             # Process measurement outcomes
             round_matches = 0
@@ -226,6 +232,7 @@ class AdaptiveHybridStrategy(BaseStrategy):
 
         wall_time = time.time() - start_time
         total_cost = float(classical_filter_cost + total_oracle_calls + verify_cost)
+        per_attempt_success = bool(is_verified and rounds_executed == 1)
 
         return ExecutionRecord(
             strategy_name=self.name,
@@ -250,5 +257,7 @@ class AdaptiveHybridStrategy(BaseStrategy):
                 "candidates_remaining": candidate_space_size,
                 "decisions": decisions_log,
                 "final_estimated_fidelity": estimator.estimated_fidelity,
+                "per_attempt_success": per_attempt_success,
+                "eventual_success": is_verified,
             },
         )

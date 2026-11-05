@@ -10,7 +10,6 @@ from typing import List, NamedTuple
 
 from agqca.ciphers.base import Cipher
 from agqca.ciphers.saes import SimplifiedAES
-from agqca.ciphers.toyspn import ToySPN
 
 
 class CipherTestVector(NamedTuple):
@@ -50,23 +49,6 @@ SAES_VECTORS: List[CipherTestVector] = [
         key=0xFFFF,
         expected_ciphertext=SimplifiedAES().encrypt(0xFFFF, 0xFFFF),
         description="All-ones vector",
-    ),
-]
-
-TOYSPN_VECTORS: List[CipherTestVector] = [
-    CipherTestVector(
-        cipher_name="ToySPN",
-        plaintext=0x26B7,
-        key=0x3A94,
-        expected_ciphertext=ToySPN().encrypt(0x26B7, 0x3A94),
-        description="Heys SPN arbitrary vector 1",
-    ),
-    CipherTestVector(
-        cipher_name="ToySPN",
-        plaintext=0x0000,
-        key=0x0000,
-        expected_ciphertext=ToySPN().encrypt(0x0000, 0x0000),
-        description="All-zeroes vector",
     ),
 ]
 

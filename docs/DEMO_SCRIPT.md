@@ -1,78 +1,101 @@
-# AdaptiveGrover-QCA: 3–5 Minute Interactive Demo Script
+# AdaptiveGrover-QCA: 3–5 Minute Interactive Research Demo Script
 
-This script provides talking points, navigation cues, and contingency fallbacks for presenting **AdaptiveGrover-QCA** to academic peers, reviewers, or executive audiences.
+This script provides structured talking points, navigation cues, and contingency procedures for demonstrating the **AdaptiveGrover-QCA** research platform to academic reviewers, colleagues, or industry stakeholders.
 
 ---
 
-## 0. Demo Prerequisites & Launch (< 30 seconds)
+## 0. Launching the Research Dashboard (< 30 seconds)
 
 ### Command to Launch
 ```bash
-make demo
+make dashboard
 ```
-*Browser automatically opens at `http://localhost:8501`.*
+*Builds the React frontend and launches the unified FastAPI service at `http://localhost:8000`.*
 
-### Contingency Fallback
-If running in an environment without browser access or live Qiskit simulation is slow, ensure **"Fast Offline Demo (Precomputed Cache)"** is selected in the sidebar. This loads saved experimental data instantaneously with zero quantum simulation latency.
+### Offline Fallback Procedure
+If operating in an isolated or offline network environment, the platform runs completely self-contained. All simulation models, Bayesian controllers, and the interactive research assistant operate locally with deterministic offline reasoning.
 
 ---
 
 ## 1. Opening & Scientific Integrity Disclaimer (Minute 0:00 – 0:45)
 
 **Talking Point**:
-> *"Welcome. Today we present **AdaptiveGrover-QCA**, a reproducible research framework addressing a foundational question in quantum cryptanalysis: **How much of Grover's theoretical quadratic advantage actually survives under realistic noisy, depth-limited quantum execution, and can an adaptive controller recover that advantage?**"*
+> *"Welcome. Today we demonstrate **AdaptiveGrover-QCA**, an experimental framework addressing a core question in quantum cryptanalysis: **How much of Grover's theoretical quadratic advantage actually survives under realistic noisy, depth-limited quantum execution, and can an adaptive controller recover search efficiency?**"*
 
 **Visual Action**:
-- Point out the prominent top alert banner:
-  > *"First, as a non-negotiable rule of scientific integrity: this framework operates strictly on educational and reduced-scale ciphers in simulation. It does **not** attack full AES-128 or AES-256 and produces experimental estimates, not formal cryptographic certification."*
+- Point out the prominent amber banner at the top of the **Overview** view:
+  > *"Before presenting any metrics, our framework adheres to strict scientific integrity standards: all evaluations operate on reduced-scale ciphers in simulation. No claim is made that near-term NISQ hardware can break AES-128 or AES-256. Full AES key recovery requires fault-tolerant logical qubits that do not exist today."*
 
 ---
 
-## 2. Tab 1: Strategy Benchmarks & Noise Degradation (Minute 0:45 – 1:45)
+## 2. Overview & Empirical Scaling Exponents (Minute 0:45 – 1:30)
 
 **Visual Action**:
-- Navigate to **"📊 Strategy Benchmarks"**.
-- Point to **Figure 2** (Recovery Rate vs Depolarizing Noise Rate).
+- Stay on the **Overview** tab.
+- Highlight the **Core Experimental Results Matrix** table:
+  - Classical Brute Force: $\alpha = 1.000$ (Theory: $\mathcal{O}(N)$)
+  - Standard Grover: $\alpha = 0.499$ (Theory: $\mathcal{O}(\sqrt{N})$)
+  - Adaptive Hybrid: $\alpha = 0.131$ (Sub-quadratic with classical filtering)
 
 **Talking Point**:
-> *"Here we examine the survival of quantum advantage across physical gate error rates from 0% to 20%.*
-> - *Under zero noise, standard Grover achieves near-perfect recovery with $O(\sqrt{N})$ queries.*
-> - *However, look at the orange curve: once noise exceeds 5%, standard Grover suffers catastrophic decoherence. The circuit depth is too great, and the single-shot success probability collapses to random guessing.*
-> - *Now observe our **Adaptive Hybrid Controller (green curve)**: by dynamically modulating iteration counts, applying classical filtering, and restarting shallow circuits, it maintains over 85% recovery even at 15–20% physical noise."*
+> *"Under low noise, our empirical measurements up to $n = 12$ bits confirm that Grover achieves an empirical scaling exponent $\alpha = 0.499$, validating theoretical quadratic scaling. But what happens when physical gate error is introduced?"*
 
 ---
 
-## 3. Tab 2: Controller Decision Trace (Minute 1:45 – 2:45)
+## 3. Noise Crossover & The Shallow Restart Boundary (Minute 1:30 – 2:30)
 
 **Visual Action**:
-- Click on **"🤖 Controller Decision Trace"**.
-- Set noise slider to `0.05` (5%) and check `Apply Classical Pre-Filtering`.
-- Click **"▶️ Simulate Adaptive Controller Execution"**.
+- Click on **"Noise Crossover"** in the top navigation bar.
+- Point to the interactive ECharts degradation curves:
+  - Vermillion line: Standard Grover (collapsing rapidly past 5% noise).
+  - Blue line: Shallow + Restart (sustaining search capability).
+  - Green line: Adaptive Hybrid.
 
 **Talking Point**:
-> *"Let's look under the hood at how the adaptive controller reasons in real time.*
-> 1. *First, the **Classical Analyzer** filters the 16-state key space down to 4 candidates using known constraints, with strict safety verification ensuring the true key was not discarded.*
-> 2. *Second, the **Adaptive Controller** inspects the 5% noise environment and chooses a shallow iteration count ($k=1$ or $k=2$) rather than the theoretical ideal ($k=3$), because minimizing $\mathbb{E}[\text{Cost}] = \frac{k}{p_{\text{noisy}}(k)}$ beats maximizing single-shot $p(k)$.*
-> 3. *Third, after each measurement round, an **Online Bayesian Estimator** updates posterior beliefs over success rates, triggering rapid restarts until the classical verification oracle confirms the ground-truth key."*
+> *"Here we observe the central physical trade-off:*
+> - *Standard Grover relies on coherent phase interference across all iterations. Once gate noise exceeds 5%, deeper circuits suffer catastrophic decoherence, flattening success to uniform noise.*
+> - *Notice the crossover boundary $\epsilon^* \approx 17.87\%$ (95% bootstrap CI: $[17.61\%, 18.12\%]$): beyond this point, shallow circuits with restarts strictly outperform deep coherent Grover under an equalized budget of 15,000 calls.*
+> - *The single-circuit coherence horizon occurs even earlier, around 5% error."*
 
 ---
 
-## 4. Tab 4: Cryptographic Readiness Analyzer (Minute 2:45 – 3:45)
+## 4. Fair Filtering Baseline: Separating Classical from Quantum (Minute 2:30 – 3:15)
 
 **Visual Action**:
-- Navigate to **"🛡️ Cryptographic Readiness Analyzer"**.
-- Select **`AES-128`**.
+- Click on **"Filtering Cost"**.
+- Select 2 prefix constraint bits.
+- Point to the **Decomposition Table** and the quantum speedup column $S_{\text{quantum}}$.
 
 **Talking Point**:
-> *"Finally, we look at the Readiness Analyzer. When industry asks 'Can a quantum computer break AES-128 today?', this tool provides a grounded, literature-verified answer.*
-> - *Ideal Grover requires $\approx 2^{64}$ sequential operations.*
-> - *Grounded in verified literature (Grassl et al. 2016 and Jaques et al. 2020), a full attack requires between 1,785 and 2,953 logical qubits and millions of physical error-corrected qubits.*
-> - *Under realistic NISQ error rates without fault tolerance, circuit survival probability is literally zero ($0.00 \times 10^0$).*
-> - *The verdict is unequivocal: **AES-128 is completely safe against NISQ devices**, requiring decades of fault-tolerant error-correction scaling before presenting any practical threat."*
+> *"A critical finding of our validation audit is the **fair filtering baseline**:*
+> - *Filtering down candidate space from $N \to N'$ provides a classical reduction factor $N/N'$.*
+> - *To prevent false claims of quantum advantage, we benchmark filtered Grover against **filtered classical brute force**.*
+> - *On small key spaces ($n \le 8$), quantum gate overheads and classical verification result in a quantum-specific speedup $S_{\text{quantum}} < 1.0\times$. True quantum advantage emerges only asymptotically when $N' \gg 2^{16}$."*
 
 ---
 
-## 5. Q&A and Conclusion (Minute 3:45 – 4:00)
+## 5. AES Readiness & Interactive Assistant (Minute 3:15 – 4:30)
+
+**Visual Action**:
+- Click on **"AES Readiness"**.
+- Select **`AES-128`** and adjust the Physical Error Rate slider.
+- Point to the NISQ Feasibility Assessment Verdict: **"Infeasible on NISQ"** with survival probability $0.00 \times 10^0$.
+- Click **"Research Assistant"** in the top right to open the conversational drawer.
+- Click the suggestion chip: *"Can quantum computers break AES-128?"*
+- Show the grounded reply citing Grassl et al. (2016) and Jaques et al. (2020).
 
 **Talking Point**:
-> *"In summary, AdaptiveGrover-QCA shows that combining classical filtering, noise-aware depth control, and shallow restarts bridges the gap between asymptotic quantum theory and physical NISQ constraints. The full benchmark suite can be reproduced with a single `make reproduce-small` command. Thank you, and I welcome questions."*
+> *"When industry asks whether current quantum computers threaten AES, our Readiness Analyzer provides a peer-reviewed, grounded answer.*
+> - *AES-128 requires over $1.18 \times 10^{19}$ sequential Grover iterations and between 1,785 and 2,953 logical qubits.*
+> - *On NISQ hardware with 0.1% physical error, the circuit survival probability is mathematically zero.*
+> - *Full AES remains completely secure against near-term quantum devices."*
+
+---
+
+## 6. Closing & Audit Verification (Minute 4:30 – 5:00)
+
+**Visual Action**:
+- Click on **"Methods & Audit"**.
+- Show the 8 completed audit action items (A1 through A8).
+- Conclude:
+  > *"All experimental code, aggregated data, figures, and tables are fully reproducible via `make audit` and `make reproduce-small`."*

@@ -18,7 +18,9 @@ def get_fake_backend(name: str = "FakeManilaV2") -> Any:
     if hasattr(fp, name):
         backend_cls = getattr(fp, name)
         return backend_cls()
-    raise ValueError(f"Unknown fake backend '{name}'. Available include FakeManilaV2, FakeSherbrooke.")
+    raise ValueError(
+        f"Unknown fake backend '{name}'. Available include FakeManilaV2, FakeSherbrooke."
+    )
 
 
 def get_fake_backend_noise_model(name: str = "FakeManilaV2") -> NoiseModel:
@@ -45,3 +47,30 @@ def get_fake_backend_properties(name: str = "FakeManilaV2") -> Dict[str, Any]:
         "num_qubits": num_qubits,
         "basis_gates": basis_gates,
     }
+
+
+def check_backend_capacity(backend_or_name: Any, required_qubits: int) -> bool:
+    """Validate that the target backend has sufficient physical qubits.
+
+    Args:
+        backend_or_name: Backend instance or name string.
+        required_qubits: Number of qubits required by the quantum circuit.
+
+    Returns:
+        True if capacity is sufficient.
+
+    Raises:
+        ValueError: If required_qubits exceeds physical capacity of the backend.
+    """
+    if isinstance(backend_or_name, str):
+        backend = get_fake_backend(backend_or_name)
+    else:
+        backend = backend_or_name
+
+    num_qubits = backend.num_qubits
+    if required_qubits > num_qubits:
+        raise ValueError(
+            f"Circuit requires {required_qubits} qubits, but backend '{getattr(backend, 'name', str(backend))}' "
+            f"only possesses {num_qubits} physical qubits."
+        )
+    return True

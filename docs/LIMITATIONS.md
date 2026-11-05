@@ -17,14 +17,15 @@ In accordance with the scientific integrity principles of AdaptiveGrover-QCA, th
 - **Conclusion**: Quantum advantage vanishes completely. The controller detects this condition via the Bayesian estimator and falls back to classical verification.
 
 ### 1.3 Regime C: Classical Filtering Without Constraints
-- **Observation**: When no cryptographic constraints (e.g. prefix, suffix, parity, or dictionary) are known beforehand, candidate filtering tests all $N$ keys, costing $N$ classical checks and achieving a reduction ratio of $1.0\times$.
-- **Result**: Imposing classical filtering when no constraints exist strictly degrades overall efficiency, adding $N$ classical operations to the quantum search cost.
-- **Conclusion**: Classical pre-filtering must only be activated when structural or leakage constraints exist.
+### 1.4 Regime D: Small Key Spaces with Classical Filtering ($n \le 8$)
+- **Observation**: When classical filtering reduces candidate cardinality $N \to N'$, filtered classical brute force searches among $N'$ candidates with expected cost $N'/2 + C_{\text{filter}}$.
+- **Result**: On small registers ($n \le 8$), the constant prefactors of quantum circuit compilation, transpilation, measurement shots, and classical candidate verification outweigh the asymptotic Grover speedup. Filtered Grover achieves a quantum-specific speedup over filtered classical brute force of $< 1.0\times$ (typically $0.35\times$ to $0.45\times$).
+- **Conclusion**: Classical search-space reduction ($N/N'$) accounts for the end-to-end reduction over unfiltered classical brute force. Quantum advantage only emerges asymptotically when candidate space $N'$ is sufficiently large ($N' \gg 2^{16}$) and circuit noise is kept below threshold.
 
 ---
 
 ## 2. Hardware and Simulation Boundaries
 
-1. **Statevector Simulation Ceiling**: Full statevector simulation of Mode B reversible circuits is constrained to $n \le 16$ bits ($2^{33}$ amplitudes for 16-bit key + 16-bit state + flag would require $>64$ GB RAM). Large-scale resource projections ($n = 32, 64, 128$) are architectural gate-count extrapolations, not executed statevectors.
-2. **Noise Model Realism**: Physical quantum devices exhibit non-Markovian 1/f noise, drift, and crosstalk that are approximated here by standard Lindbladian depolarizing channels and $T_1/T_2$ relaxation.
-3. **No Claim on Live Cryptosystems**: All attacks run on educational reduced ciphers (S-AES, Toy SPN). This software cannot ingest real-world ciphertexts or attack production AES-128 / AES-256 implementations.
+1. **Strict Measurement Bounds ($n \le 16$)**: Quantum circuit synthesis and gate counts for Mode B reversible circuits are strictly limited to measured instances up to $n = 16$ bits (33 total qubits). Synthetic 128-bit extrapolations from toy ciphers have been explicitly removed following the validation audit; all AES-128 and AES-256 projections cited in this repository are taken directly from published peer-reviewed literature (Grassl et al. 2016, Jaques et al. 2020) and are clearly demarcated as external estimates.
+2. **Noise Model Realism**: Physical quantum hardware exhibits non-Markovian noise, spectator crosstalk, and frequency collision drifts. While this framework models 1q/2q depolarizing errors, readout bit-flips, thermal relaxation ($T_1/T_2$), and IBM fake backends (`FakeManilaV2`), physical quantum processors will experience additional device-specific fidelity degradation.
+3. **Absolute Prohibition on Cryptographic Attack Claims**: All attacks run strictly on educational, pedagogical, and scaled-down ciphers (S-AES, Mode B SPN). This software produces experimental complexity estimates, not formal cryptographic vulnerabilities, and makes no claim that current or near-term quantum hardware poses a threat to production AES-128 or AES-256.

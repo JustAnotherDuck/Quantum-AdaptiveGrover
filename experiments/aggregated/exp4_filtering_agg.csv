@@ -1,5 +1,5 @@
-profile,mean_filter_cost,mean_total_cost,cost_ci_low,cost_ci_high,effective_speedup
-1-Bit Prefix (2x Reduction),32.0,97.0,97.0,97.0,0.16494845360824742
-2-Bit Prefix (4x Reduction),32.0,97.0,97.0,97.0,0.16494845360824742
-3-Bit Prefix (8x Reduction),32.0,97.0,97.0,97.0,0.16494845360824742
-None (Full Space),0.0,65.0,65.0,65.0,0.24615384615384617
+profile,prefix_bits,initial_search_space,filtered_search_space,filtering_reduction_factor,mean_filter_cost,unfiltered_classical_cost,filtered_classical_cost,filtered_grover_cost,grover_ci_low,grover_ci_high,quantum_specific_speedup,end_to_end_speedup
+1-Bit Prefix (2x Reduction),1,32,16,2.0,32.0,32.0,41.53333333333333,97.0,97.0,97.0,0.4281786941580756,0.32989690721649484
+2-Bit Prefix (4x Reduction),2,32,8,4.0,32.0,32.0,36.266666666666666,97.0,97.0,97.0,0.3738831615120275,0.32989690721649484
+3-Bit Prefix (8x Reduction),3,32,4,8.0,32.0,32.0,34.333333333333336,97.0,97.0,97.0,0.3539518900343643,0.32989690721649484
+None (Full Space),0,32,32,1.0,0.0,32.0,64.0,65.0,65.0,65.0,0.9846153846153847,0.49230769230769234

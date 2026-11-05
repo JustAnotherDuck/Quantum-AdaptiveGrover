@@ -59,11 +59,15 @@ class ShallowRestartStrategy(BaseStrategy):
             total_iterations += k_shallow
             total_oracle_calls += k_shallow * shots_per_restart
 
-            counts = sim.run(
-                qc,
-                shots=shots_per_restart,
-                seed_simulator=rng.randint(1, 1000000),
-            ).result().get_counts()
+            counts = (
+                sim.run(
+                    qc,
+                    shots=shots_per_restart,
+                    seed_simulator=rng.randint(1, 1000000),
+                )
+                .result()
+                .get_counts()
+            )
 
             # Classically test measured candidates in this restart
             for bitstr in counts.keys():
@@ -79,6 +83,7 @@ class ShallowRestartStrategy(BaseStrategy):
 
         wall_time = time.time() - start_time
         total_cost = float(total_oracle_calls + verify_cost)
+        per_attempt_success = bool(is_verified and restarts == 1)
 
         return ExecutionRecord(
             strategy_name=self.name,
@@ -101,5 +106,7 @@ class ShallowRestartStrategy(BaseStrategy):
             extra_metadata={
                 "k_shallow": k_shallow,
                 "restarts": restarts,
+                "per_attempt_success": per_attempt_success,
+                "eventual_success": is_verified,
             },
         )
