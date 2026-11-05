@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: adaptive-grover-qca
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: MPLCONFIGDIR
+        value: /tmp/mpl
+
