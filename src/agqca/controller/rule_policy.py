@@ -19,6 +19,7 @@ class RuleBasedPolicy(ControllerPolicy):
 
     def decide(self, state: ControllerState) -> PolicyAction:
         k_ideal = optimal_grover_iterations(state.key_size, num_marked=1)
+        base_shots = max(1, state.shots_per_round)
 
         # Budget guard: if we've consumed too many calls without success, terminate
         if state.cumulative_oracle_calls > 30000:
@@ -36,7 +37,7 @@ class RuleBasedPolicy(ControllerPolicy):
             return PolicyAction(
                 action_type=ActionType.RESTART_SHALLOW,
                 iterations=k_shallow,
-                shots=16,
+                shots=base_shots,
                 strategy_name="Shallow + Restart",
                 reason=f"High noise ({state.noise_level:.1%}) favors shallow restarts over deep Grover.",
             )
@@ -51,7 +52,7 @@ class RuleBasedPolicy(ControllerPolicy):
             return PolicyAction(
                 action_type=ActionType.RUN_QUANTUM,
                 iterations=k_opt,
-                shots=64,
+                shots=base_shots,
                 strategy_name="Noise-Aware Grover",
                 reason=f"Moderate noise ({state.noise_level:.1%}) optimized at k={k_opt} (vs k_ideal={k_ideal}).",
             )
@@ -60,7 +61,7 @@ class RuleBasedPolicy(ControllerPolicy):
         return PolicyAction(
             action_type=ActionType.RUN_QUANTUM,
             iterations=k_ideal,
-            shots=128,
+            shots=base_shots,
             strategy_name="Standard Grover",
             reason=f"Low/zero noise ({state.noise_level:.1%}) justifies full optimal depth k={k_ideal}.",
         )

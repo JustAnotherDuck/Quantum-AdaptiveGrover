@@ -154,6 +154,7 @@ class AdaptiveHybridStrategy(BaseStrategy):
                 cumulative_verify_cost=verify_cost,
                 estimated_fidelity=estimator.estimated_fidelity,
                 observed_success_rate=estimator.alpha / (estimator.alpha + estimator.beta),
+                shots_per_round=context.shots_per_round,
             )
 
             # Policy decision
@@ -163,7 +164,7 @@ class AdaptiveHybridStrategy(BaseStrategy):
                 action = PolicyAction(
                     action_type=ActionType.RUN_QUANTUM,
                     iterations=k_ideal,
-                    shots=32,
+                    shots=context.shots_per_round,
                     strategy_name="Fixed Grover",
                     reason="Ablation: Adaptivity disabled.",
                 )
@@ -171,22 +172,24 @@ class AdaptiveHybridStrategy(BaseStrategy):
                 action = self.policy.decide(controller_state)
 
             if action.action_type == ActionType.TERMINATE:
-                decisions_log.append({"round": rounds_executed, "action": "TERMINATE"})
+                decisions_log.append(
+                    {
+                        "round": rounds_executed,
+                        "strategy": "None",
+                        "action": "TERMINATE",
+                        "iterations": 0,
+                        "shots": 0,
+                        "measured_key": 0,
+                        "oracle_calls": 0,
+                        "success": False,
+                        "noise_estimate": estimator.estimated_fidelity,
+                        "reason": action.reason,
+                    }
+                )
                 break
 
             k = max(1, action.iterations)
-            shots = max(1, min(action.shots, 128))
-
-            decisions_log.append(
-                {
-                    "round": rounds_executed,
-                    "strategy": action.strategy_name,
-                    "action": action.action_type.value,
-                    "iterations": k,
-                    "shots": shots,
-                    "reason": action.reason,
-                }
-            )
+            shots = max(1, action.shots)
 
             total_iterations += k
             total_oracle_calls += k * shots
@@ -207,8 +210,12 @@ class AdaptiveHybridStrategy(BaseStrategy):
 
             # Process measurement outcomes
             round_matches = 0
-            # Test measured candidate keys classically
             sorted_counts = sorted(counts.items(), key=lambda x: x[1], reverse=True)
+            measured_bitstr = sorted_counts[0][0] if sorted_counts else "0"
+            measured_idx = int(measured_bitstr, 2)
+            round_measured_key = mapper.index_to_candidate(measured_idx)
+
+            # Test measured candidate keys classically
             for bitstr, count in sorted_counts:
                 idx = int(bitstr, 2)
                 candidate_key = mapper.index_to_candidate(idx)
@@ -225,6 +232,21 @@ class AdaptiveHybridStrategy(BaseStrategy):
                 trials=shots,
                 k_iterations=k,
                 num_qubits=n_search_qubits,
+            )
+
+            decisions_log.append(
+                {
+                    "round": rounds_executed,
+                    "strategy": action.strategy_name,
+                    "action": action.action_type.value,
+                    "iterations": k,
+                    "shots": shots,
+                    "measured_key": round_measured_key,
+                    "oracle_calls": k * shots,
+                    "success": is_verified,
+                    "noise_estimate": estimator.estimated_fidelity,
+                    "reason": action.reason,
+                }
             )
 
             if is_verified or self.no_restart:

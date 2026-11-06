@@ -19,6 +19,7 @@ from agqca.api.schemas import (
     ExecutionRecordResponse,
     ReadinessRequest,
     ReadinessResponse,
+    RoundLogItem,
     SimulateRequest,
 )
 from agqca.assistant.provider import MANDATORY_DISCLAIMER, ResearchAssistantProvider
@@ -220,8 +221,77 @@ def run_simulation(req: SimulateRequest) -> ExecutionRecordResponse:
         )
 
     rec = strat.run(ctx)
-    d = rec.to_dict()
-    return ExecutionRecordResponse(**d)
+    extra = rec.extra_metadata or {}
+    decisions = extra.get("decisions", [])
+    round_logs: List[RoundLogItem] = []
+
+    if decisions:
+        for i, dec in enumerate(decisions):
+            round_logs.append(
+                RoundLogItem(
+                    round=dec.get("round", i + 1),
+                    action=str(dec.get("action", dec.get("strategy", "search_iteration"))),
+                    iterations=int(dec.get("iterations", 0)),
+                    shots=int(dec.get("shots", 0)),
+                    measured_key=int(dec.get("measured_key", rec.found_key if rec.found_key is not None else 0)),
+                    oracle_calls=int(
+                        dec.get("oracle_calls", int(dec.get("iterations", 0)) * int(dec.get("shots", 0)))
+                    ),
+                    success=bool(dec.get("success", False)),
+                    noise_estimate=float(dec.get("noise_estimate", rec.noise_level)),
+                )
+            )
+    else:
+        rounds_cnt = max(1, int(extra.get("rounds", 1)))
+        calls_per_round = rec.oracle_calls // rounds_cnt
+        iter_per_round = rec.iterations // rounds_cnt
+        shots_per_round = rec.shots // rounds_cnt if rec.shots else 0
+        for r in range(1, rounds_cnt + 1):
+            is_last = r == rounds_cnt
+            round_logs.append(
+                RoundLogItem(
+                    round=r,
+                    action="quantum_search"
+                    if rec.oracle_calls > 0
+                    else "classical_verification",
+                    iterations=iter_per_round,
+                    shots=shots_per_round,
+                    measured_key=int(rec.found_key)
+                    if (is_last and rec.is_verified and rec.found_key is not None)
+                    else 0,
+                    oracle_calls=calls_per_round,
+                    success=bool(rec.is_verified if is_last else False),
+                    noise_estimate=float(rec.noise_level),
+                )
+            )
+
+    return ExecutionRecordResponse(
+        strategy_name=rec.strategy_name,
+        target_key=rec.target_key,
+        found_key=rec.found_key,
+        is_verified=rec.is_verified,
+        iterations=rec.iterations,
+        oracle_calls=rec.oracle_calls,
+        classical_filter_cost=rec.classical_filter_cost,
+        classical_verify_cost=rec.classical_verify_cost,
+        total_effective_cost=rec.total_effective_cost,
+        circuit_depth=rec.circuit_depth,
+        qubits_total=rec.qubits_total,
+        two_qubit_gates=rec.two_qubit_gates,
+        total_gates=rec.total_gates,
+        shots=rec.shots,
+        noise_level=rec.noise_level,
+        wall_clock_time=rec.wall_clock_time,
+        seed=rec.seed,
+        total_oracle_calls=rec.oracle_calls,
+        classical_verification_calls=rec.classical_verify_cost,
+        wall_clock_seconds=rec.wall_clock_time,
+        rounds_executed=int(extra.get("rounds", max(1, len(round_logs)))),
+        final_search_space_size=int(extra.get("candidates_remaining", 1 << req.key_size)),
+        round_logs=round_logs,
+        per_attempt_success=bool(extra.get("per_attempt_success", False)),
+        extra_metadata=extra,
+    )
 
 
 @app.get("/api/simulate/stream")

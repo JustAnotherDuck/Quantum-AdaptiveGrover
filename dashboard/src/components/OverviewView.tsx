@@ -63,7 +63,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({ onNavigate }) => {
           </div>
           <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
             On n = 6 under equalized query budgets (B<sub>max</sub> = 15,000 calls), Shallow Restart overtakes deep Standard Grover
-            at &epsilon;* &approx; 17.87% (95% CI: [17.61%, 18.12%]). Single-circuit amplification fidelity crossover occurs at &approx; 5.0% noise.
+            at &epsilon;* &asymp; 17.87% (95% CI: [17.61%, 18.12%]). Single-circuit amplification fidelity crossover occurs at &asymp; 5.0% noise.
           </p>
         </div>
 

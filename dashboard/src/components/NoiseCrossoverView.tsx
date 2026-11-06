@@ -182,7 +182,7 @@ export const NoiseCrossoverView: React.FC<NoiseCrossoverViewProps> = ({ isDark }
               Single-Circuit Coherence Horizon
             </span>
             <div className="text-xl font-bold font-mono text-amber-700 dark:text-amber-400">
-              &approx; 5.0%
+              &asymp; 5.0%
             </div>
             <span className="text-[11px] text-amber-600 dark:text-amber-500">
               Fidelity threshold where k = 1 overtakes k<sub>ideal</sub>

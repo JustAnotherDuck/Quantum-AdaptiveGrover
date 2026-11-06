@@ -51,10 +51,41 @@ export const StrategyExplorerView: React.FC<StrategyExplorerViewProps> = ({ onLo
       if (!res.ok) {
         throw new Error(`Simulation request failed: status ${res.status}`);
       }
-      const data: ExecutionRecord = await res.json();
-      setResult(data);
+      const data = await res.json();
+      const normalizedRecord: ExecutionRecord = {
+        strategy_name: data.strategy_name || strategy,
+        target_key: data.target_key,
+        found_key: data.found_key !== undefined ? data.found_key : null,
+        is_verified: Boolean(data.is_verified),
+        total_oracle_calls: data.total_oracle_calls ?? data.oracle_calls ?? 0,
+        classical_verification_calls:
+          data.classical_verification_calls ?? data.classical_verify_cost ?? 0,
+        total_effective_cost: data.total_effective_cost ?? 0,
+        wall_clock_seconds: data.wall_clock_seconds ?? data.wall_clock_time ?? 0,
+        rounds_executed: data.rounds_executed ?? data.extra_metadata?.rounds ?? 1,
+        final_search_space_size:
+          data.final_search_space_size ?? data.extra_metadata?.candidates_remaining ?? (1 << keySize),
+        round_logs:
+          Array.isArray(data.round_logs) && data.round_logs.length > 0
+            ? data.round_logs
+            : [
+                {
+                  round: 1,
+                  action: data.strategy_name || strategy,
+                  iterations: data.iterations ?? 0,
+                  shots: data.shots ?? 0,
+                  measured_key: data.found_key ?? 0,
+                  oracle_calls: data.total_oracle_calls ?? data.oracle_calls ?? 0,
+                  success: Boolean(data.is_verified),
+                  noise_estimate: data.noise_level ?? noiseLevel,
+                },
+              ],
+        per_attempt_success: data.per_attempt_success,
+        ...data,
+      };
+      setResult(normalizedRecord);
       if (onLoadReplayData) {
-        onLoadReplayData(data);
+        onLoadReplayData(normalizedRecord);
       }
     } catch (err: any) {
       setErrorMsg(err.message || "Execution error");
@@ -239,42 +270,42 @@ export const StrategyExplorerView: React.FC<StrategyExplorerViewProps> = ({ onLo
             <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
               <span className="text-[11px] text-slate-500 block mb-1">Oracle Calls</span>
               <span className="text-sm font-bold font-mono">
-                {result.total_oracle_calls.toLocaleString()}
+                {(result.total_oracle_calls ?? result.oracle_calls ?? 0).toLocaleString()}
               </span>
             </div>
 
             <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
               <span className="text-[11px] text-slate-500 block mb-1">Verification Checks</span>
               <span className="text-sm font-bold font-mono">
-                {result.classical_verification_calls.toLocaleString()}
+                {(result.classical_verification_calls ?? result.classical_verify_cost ?? 0).toLocaleString()}
               </span>
             </div>
 
             <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
               <span className="text-[11px] text-slate-500 block mb-1">Total Effective Cost</span>
               <span className="text-sm font-bold font-mono text-emerald-600 dark:text-emerald-400">
-                {Math.round(result.total_effective_cost).toLocaleString()}
+                {Math.round(result.total_effective_cost ?? 0).toLocaleString()}
               </span>
             </div>
 
             <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
               <span className="text-[11px] text-slate-500 block mb-1">Rounds Executed</span>
               <span className="text-sm font-bold font-mono">
-                {result.rounds_executed}
+                {result.rounds_executed ?? 1}
               </span>
             </div>
 
             <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
               <span className="text-[11px] text-slate-500 block mb-1">Elapsed Time</span>
               <span className="text-sm font-bold font-mono">
-                {(result.wall_clock_seconds * 1000).toFixed(1)} ms
+                {(((result.wall_clock_seconds ?? result.wall_clock_time ?? 0)) * 1000).toFixed(1)} ms
               </span>
             </div>
           </div>
 
           <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs">
             <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-3">
-              Round Execution Trace ({result.round_logs.length} rounds)
+              Round Execution Trace ({(result.round_logs ?? []).length} rounds)
             </h3>
             <div className="overflow-x-auto max-h-60 overflow-y-auto">
               <table className="w-full text-xs text-left border-collapse">
@@ -290,14 +321,18 @@ export const StrategyExplorerView: React.FC<StrategyExplorerViewProps> = ({ onLo
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 dark:divide-slate-800 font-mono text-[11px]">
-                  {result.round_logs.map((r, i) => (
+                  {(result.round_logs ?? []).map((r, i) => (
                     <tr key={i} className={r.success ? "bg-emerald-50/50 dark:bg-emerald-950/20" : ""}>
                       <td className="py-2 px-3">{r.round}</td>
                       <td className="py-2 px-3 font-sans font-medium">{r.action}</td>
-                      <td className="py-2 px-3">{r.iterations}</td>
-                      <td className="py-2 px-3">{r.shots}</td>
-                      <td className="py-2 px-3">{r.measured_key} (0x{r.measured_key.toString(16)})</td>
-                      <td className="py-2 px-3">{r.oracle_calls}</td>
+                      <td className="py-2 px-3">{r.iterations ?? 0}</td>
+                      <td className="py-2 px-3">{r.shots ?? 0}</td>
+                      <td className="py-2 px-3">
+                        {r.measured_key !== null && r.measured_key !== undefined
+                          ? `${r.measured_key} (0x${r.measured_key.toString(16)})`
+                          : "None"}
+                      </td>
+                      <td className="py-2 px-3">{(r.oracle_calls ?? 0).toLocaleString()}</td>
                       <td className="py-2 px-3 font-sans">
                         {r.success ? (
                           <span className="text-emerald-600 font-medium">Verified Correct</span>

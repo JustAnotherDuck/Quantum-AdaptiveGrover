@@ -20,13 +20,21 @@ export const ControllerReplayView: React.FC<ControllerReplayViewProps> = ({ init
     }
   }, [initialRecord]);
 
+  const fallbackLogs = [
+    { round: 1, action: "filter_space_prefix", iterations: 0, shots: 0, measured_key: 0, oracle_calls: 0, success: false, noise_estimate: 0.01 },
+    { round: 2, action: "grover_amplification", iterations: 1, shots: 64, measured_key: 5, oracle_calls: 64, success: false, noise_estimate: 0.018 },
+    { round: 3, action: "shallow_restart_amplification", iterations: 1, shots: 64, measured_key: 7, oracle_calls: 64, success: false, noise_estimate: 0.021 },
+    { round: 4, action: "adaptive_verified", iterations: 1, shots: 64, measured_key: 5, oracle_calls: 64, success: true, noise_estimate: 0.020 },
+  ];
+
   useEffect(() => {
     let timer: any = null;
-    if (isPlaying && record && currentRoundIdx < record.round_logs.length - 1) {
+    const numLogs = record?.round_logs?.length ?? fallbackLogs.length;
+    if (isPlaying && currentRoundIdx < numLogs - 1) {
       timer = setTimeout(() => {
         setCurrentRoundIdx((prev) => prev + 1);
       }, 1000);
-    } else if (isPlaying && record && currentRoundIdx >= record.round_logs.length - 1) {
+    } else if (isPlaying && currentRoundIdx >= numLogs - 1) {
       setIsPlaying(false);
     }
     return () => clearTimeout(timer);
@@ -42,16 +50,15 @@ export const ControllerReplayView: React.FC<ControllerReplayViewProps> = ({ init
     wall_clock_seconds: 0.012,
     rounds_executed: 4,
     final_search_space_size: 4,
-    round_logs: [
-      { round: 1, action: "filter_space_prefix", iterations: 0, shots: 0, measured_key: 0, oracle_calls: 0, success: false, noise_estimate: 0.01 },
-      { round: 2, action: "grover_amplification", iterations: 1, shots: 64, measured_key: 5, oracle_calls: 64, success: false, noise_estimate: 0.018 },
-      { round: 3, action: "shallow_restart_amplification", iterations: 1, shots: 64, measured_key: 7, oracle_calls: 64, success: false, noise_estimate: 0.021 },
-      { round: 4, action: "adaptive_verified", iterations: 1, shots: 64, measured_key: 5, oracle_calls: 64, success: true, noise_estimate: 0.020 },
-    ],
+    round_logs: fallbackLogs,
   };
 
-  const logs = activeRecord.round_logs;
-  const currentRound = logs[Math.min(currentRoundIdx, logs.length - 1)];
+  const logs =
+    activeRecord.round_logs && activeRecord.round_logs.length > 0
+      ? activeRecord.round_logs
+      : fallbackLogs;
+  const safeIdx = Math.min(Math.max(0, currentRoundIdx), logs.length - 1);
+  const currentRound = logs[safeIdx] || fallbackLogs[0];
 
   const chartOption = {
     backgroundColor: 'transparent',

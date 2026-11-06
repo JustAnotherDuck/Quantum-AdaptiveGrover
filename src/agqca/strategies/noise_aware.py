@@ -45,7 +45,7 @@ class NoiseAwareGroverStrategy(BaseStrategy):
             else None
         )
         sim = AerSimulator(noise_model=noise_model)
-        shots_batch = min(context.shots_per_round, 128)
+        shots_batch = max(1, context.shots_per_round)
         oracle_calls_per_batch = k_opt * shots_batch
 
         total_oracle_calls = 0

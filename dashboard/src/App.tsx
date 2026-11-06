@@ -12,6 +12,55 @@ import { MethodsValidityView } from './components/MethodsValidityView';
 import { AssistantDrawer } from './components/AssistantDrawer';
 import { ExecutionRecord } from './types';
 
+interface ErrorBoundaryProps {
+  children: React.ReactNode;
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+}
+
+class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error("UI Render Exception caught by ErrorBoundary:", error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="p-8 max-w-xl mx-auto my-12 bg-white dark:bg-slate-900 rounded-xl border border-red-200 dark:border-red-900/60 shadow-lg text-center space-y-4">
+          <div className="w-12 h-12 rounded-full bg-red-100 dark:bg-red-950/60 text-red-600 dark:text-red-400 mx-auto flex items-center justify-center font-bold text-lg">
+            !
+          </div>
+          <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100">
+            Interactive View Render Exception
+          </h2>
+          <p className="text-xs text-slate-600 dark:text-slate-400 font-mono bg-slate-50 dark:bg-slate-950 p-3 rounded-lg text-left overflow-x-auto">
+            {this.state.error?.message || "An unexpected rendering error occurred."}
+          </p>
+          <button
+            onClick={() => this.setState({ hasError: false, error: null })}
+            className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium transition-colors"
+          >
+            Reset View
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 export const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewType>('overview');
   const [isDark, setIsDark] = useState<boolean>(true);
@@ -48,21 +97,23 @@ export const App: React.FC = () => {
       />
 
       {/* Main View Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {currentView === 'overview' && <OverviewView onNavigate={setCurrentView} />}
-        {currentView === 'explorer' && (
-          <StrategyExplorerView onLoadReplayData={handleLoadReplayData} />
-        )}
-        {currentView === 'replay' && (
-          <ControllerReplayView initialRecord={replayRecord} isDark={isDark} />
-        )}
-        {currentView === 'crossover' && <NoiseCrossoverView isDark={isDark} />}
-        {currentView === 'filtering' && <FilteringCostView isDark={isDark} />}
-        {currentView === 'ablation' && <AblationMatrixView isDark={isDark} />}
-        {currentView === 'circuits' && <CircuitResourcesView />}
-        {currentView === 'readiness' && <ReadinessAnalyzerView />}
-        {currentView === 'validity' && <MethodsValidityView />}
-      </main>
+      <ErrorBoundary>
+        <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {currentView === 'overview' && <OverviewView onNavigate={setCurrentView} />}
+          {currentView === 'explorer' && (
+            <StrategyExplorerView onLoadReplayData={handleLoadReplayData} />
+          )}
+          {currentView === 'replay' && (
+            <ControllerReplayView initialRecord={replayRecord} isDark={isDark} />
+          )}
+          {currentView === 'crossover' && <NoiseCrossoverView isDark={isDark} />}
+          {currentView === 'filtering' && <FilteringCostView isDark={isDark} />}
+          {currentView === 'ablation' && <AblationMatrixView isDark={isDark} />}
+          {currentView === 'circuits' && <CircuitResourcesView />}
+          {currentView === 'readiness' && <ReadinessAnalyzerView />}
+          {currentView === 'validity' && <MethodsValidityView />}
+        </main>
+      </ErrorBoundary>
 
       {/* Research Assistant Drawer */}
       <AssistantDrawer

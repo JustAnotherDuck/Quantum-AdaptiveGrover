@@ -11,8 +11,20 @@ export interface StrategyInfo {
   description: string;
 }
 
+export interface RoundLog {
+  round: number;
+  action: string;
+  iterations: number;
+  shots: number;
+  measured_key: number;
+  oracle_calls: number;
+  success: boolean;
+  noise_estimate?: number;
+}
+
 export interface ExecutionRecord {
   strategy_name: string;
+  target_key?: number;
   found_key: number | null;
   is_verified: boolean;
   total_oracle_calls: number;
@@ -21,17 +33,20 @@ export interface ExecutionRecord {
   wall_clock_seconds: number;
   rounds_executed: number;
   final_search_space_size: number;
-  round_logs: Array<{
-    round: number;
-    action: string;
-    iterations: number;
-    shots: number;
-    measured_key: number;
-    oracle_calls: number;
-    success: boolean;
-    noise_estimate?: number;
-  }>;
+  round_logs: RoundLog[];
   per_attempt_success?: boolean;
+  oracle_calls?: number;
+  classical_verify_cost?: number;
+  wall_clock_time?: number;
+  iterations?: number;
+  circuit_depth?: number;
+  qubits_total?: number;
+  two_qubit_gates?: number;
+  total_gates?: number;
+  shots?: number;
+  noise_level?: number;
+  seed?: number;
+  extra_metadata?: Record<string, any>;
 }
 
 export interface ReadinessData {

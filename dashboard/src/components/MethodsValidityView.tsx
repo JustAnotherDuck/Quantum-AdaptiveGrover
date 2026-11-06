@@ -113,7 +113,7 @@ export const MethodsValidityView: React.FC = () => {
               P<sub>succ</sub>(k, &epsilon;) = F<sub>circ</sub>(k, &epsilon;) &middot; sin<sup>2</sup>((2k + 1)&theta;) + [1 - F<sub>circ</sub>(k, &epsilon;)] / N
             </div>
             <p className="text-[11px]">
-              Where F<sub>circ</sub>(k, &epsilon;) &approx; (1 - &epsilon;)<sup>d(k)</sup> describes circuit fidelity degradation over depth d(k),
+              Where F<sub>circ</sub>(k, &epsilon;) &asymp; (1 - &epsilon;)<sup>d(k)</sup> describes circuit fidelity degradation over depth d(k),
               and (1 - F)/N captures the uniform random background floor.
             </p>
           </div>

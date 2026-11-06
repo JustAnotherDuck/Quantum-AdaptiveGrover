@@ -176,7 +176,7 @@ export const CircuitResourcesView: React.FC = () => {
                   <td className="py-2.5 px-3">2,953</td>
                   <td className="py-2.5 px-3">3,740</td>
                   <td className="py-2.5 px-3">1,190,400</td>
-                  <td className="py-2.5 px-3">&approx; 1.18 &times; 10<sup>19</sup></td>
+                  <td className="py-2.5 px-3">&asymp; 1.18 &times; 10<sup>19</sup></td>
                 </tr>
                 <tr>
                   <td className="py-2.5 px-3 font-sans font-bold">AES-128</td>
@@ -184,7 +184,7 @@ export const CircuitResourcesView: React.FC = () => {
                   <td className="py-2.5 px-3">1,785</td>
                   <td className="py-2.5 px-3">120</td>
                   <td className="py-2.5 px-3">54,400</td>
-                  <td className="py-2.5 px-3">&approx; 1.18 &times; 10<sup>19</sup></td>
+                  <td className="py-2.5 px-3">&asymp; 1.18 &times; 10<sup>19</sup></td>
                 </tr>
                 <tr>
                   <td className="py-2.5 px-3 font-sans font-bold">AES-192</td>
@@ -192,7 +192,7 @@ export const CircuitResourcesView: React.FC = () => {
                   <td className="py-2.5 px-3">4,449</td>
                   <td className="py-2.5 px-3">4,488</td>
                   <td className="py-2.5 px-3">1,428,480</td>
-                  <td className="py-2.5 px-3">&approx; 1.89 &times; 10<sup>28</sup></td>
+                  <td className="py-2.5 px-3">&asymp; 1.89 &times; 10<sup>28</sup></td>
                 </tr>
                 <tr>
                   <td className="py-2.5 px-3 font-sans font-bold">AES-256</td>
@@ -200,7 +200,7 @@ export const CircuitResourcesView: React.FC = () => {
                   <td className="py-2.5 px-3">6,681</td>
                   <td className="py-2.5 px-3">5,236</td>
                   <td className="py-2.5 px-3">1,666,560</td>
-                  <td className="py-2.5 px-3">&approx; 2.42 &times; 10<sup>38</sup></td>
+                  <td className="py-2.5 px-3">&asymp; 2.42 &times; 10<sup>38</sup></td>
                 </tr>
               </tbody>
             </table>

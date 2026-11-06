@@ -168,7 +168,7 @@ export const ReadinessAnalyzerView: React.FC = () => {
               over 2<sup>64</sup> iterations.
             </p>
             <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 font-mono text-[11px] text-slate-700 dark:text-slate-300">
-              Total Circuit Operations = ~1.18 &times; 10<sup>19</sup> iterations &times; 54,400 T-gates &approx; 6.4 &times; 10<sup>23</sup> gates.
+              Total Circuit Operations = ~1.18 &times; 10<sup>19</sup> iterations &times; 54,400 T-gates &asymp; 6.4 &times; 10<sup>23</sup> gates.
               At physical gate error &epsilon; = 0.1%, fidelity collapses to (1 - 10<sup>-3</sup>)<sup>10<sup>23</sup></sup> &equiv; 0.00.
             </div>
           </div>

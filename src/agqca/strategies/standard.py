@@ -40,7 +40,7 @@ class StandardGroverStrategy(BaseStrategy):
         )
         sim = AerSimulator(noise_model=noise_model)
 
-        shots_batch = min(context.shots_per_round, 128)
+        shots_batch = max(1, context.shots_per_round)
         oracle_calls_per_batch = k_ideal * shots_batch
 
         total_oracle_calls = 0

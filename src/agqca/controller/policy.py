@@ -37,6 +37,7 @@ class ControllerState:
     cumulative_verify_cost: int
     estimated_fidelity: float
     observed_success_rate: float
+    shots_per_round: int = 64
     history: List[Dict[str, Any]] = field(default_factory=list)
 
 

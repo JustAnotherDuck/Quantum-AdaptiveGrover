@@ -28,10 +28,21 @@ class SimulateRequest(BaseModel):
     no_restart: bool = Field(False, description="Ablation switch: disable shallow restarts")
 
 
+class RoundLogItem(BaseModel):
+    round: int
+    action: str
+    iterations: int = 0
+    shots: int = 0
+    measured_key: int = 0
+    oracle_calls: int = 0
+    success: bool = False
+    noise_estimate: Optional[float] = None
+
+
 class ExecutionRecordResponse(BaseModel):
     strategy_name: str
     target_key: int
-    found_key: Optional[int]
+    found_key: Optional[int] = None
     is_verified: bool
     iterations: int
     oracle_calls: int
@@ -46,6 +57,14 @@ class ExecutionRecordResponse(BaseModel):
     noise_level: float
     wall_clock_time: float
     seed: int
+    # Compatibility aliases for dashboard frontend
+    total_oracle_calls: int = 0
+    classical_verification_calls: int = 0
+    wall_clock_seconds: float = 0.0
+    rounds_executed: int = 1
+    final_search_space_size: int = 0
+    round_logs: List[RoundLogItem] = Field(default_factory=list)
+    per_attempt_success: bool = False
     extra_metadata: Dict[str, Any] = Field(default_factory=dict)
 
 
