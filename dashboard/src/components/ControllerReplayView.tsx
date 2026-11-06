@@ -27,19 +27,6 @@ export const ControllerReplayView: React.FC<ControllerReplayViewProps> = ({ init
     { round: 4, action: "adaptive_verified", iterations: 1, shots: 64, measured_key: 5, oracle_calls: 64, success: true, noise_estimate: 0.020 },
   ];
 
-  useEffect(() => {
-    let timer: any = null;
-    const numLogs = record?.round_logs?.length ?? fallbackLogs.length;
-    if (isPlaying && currentRoundIdx < numLogs - 1) {
-      timer = setTimeout(() => {
-        setCurrentRoundIdx((prev) => prev + 1);
-      }, 1000);
-    } else if (isPlaying && currentRoundIdx >= numLogs - 1) {
-      setIsPlaying(false);
-    }
-    return () => clearTimeout(timer);
-  }, [isPlaying, currentRoundIdx, record]);
-
   const activeRecord: ExecutionRecord = record || {
     strategy_name: "Adaptive Hybrid (Demo)",
     found_key: 5,
@@ -60,6 +47,71 @@ export const ControllerReplayView: React.FC<ControllerReplayViewProps> = ({ init
   const safeIdx = Math.min(Math.max(0, currentRoundIdx), logs.length - 1);
   const currentRound = logs[safeIdx] || fallbackLogs[0];
 
+  useEffect(() => {
+    let timer: any = null;
+    if (isPlaying && currentRoundIdx < logs.length - 1) {
+      timer = setTimeout(() => {
+        setCurrentRoundIdx((prev) => prev + 1);
+      }, 1200);
+    } else if (isPlaying && currentRoundIdx >= logs.length - 1) {
+      setIsPlaying(false);
+    }
+    return () => clearTimeout(timer);
+  }, [isPlaying, currentRoundIdx, logs.length]);
+
+  const handlePlayToggle = () => {
+    if (logs.length <= 1) {
+      setIsPlaying(true);
+      setTimeout(() => setIsPlaying(false), 600);
+      return;
+    }
+    if (!isPlaying && currentRoundIdx >= logs.length - 1) {
+      setCurrentRoundIdx(0);
+      setIsPlaying(true);
+    } else {
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const handleRestart = () => {
+    setCurrentRoundIdx(0);
+    setIsPlaying(false);
+  };
+
+  const handleLoadDemoTrace = () => {
+    setRecord(null);
+    setCurrentRoundIdx(0);
+    setIsPlaying(false);
+  };
+
+  const targetKey = activeRecord.found_key ?? 5;
+  const measuredKey = currentRound.measured_key ?? 0;
+  const candidateKeys = Array.from(
+    new Set([
+      targetKey,
+      measuredKey,
+      (targetKey + 1) % 16,
+      (targetKey + 3) % 16,
+    ])
+  ).sort((a, b) => a - b);
+
+  const categories = candidateKeys.map(
+    (k) => `0x${k.toString(16).toUpperCase()} (${k})${k === targetKey ? " [Target]" : ""}`
+  );
+
+  const chartData = candidateKeys.map((k) => {
+    if (k === measuredKey && currentRound.success) {
+      return currentRound.shots > 0 ? Math.round(currentRound.shots * 0.7) : 42;
+    }
+    if (k === measuredKey) {
+      return currentRound.shots > 0 ? Math.round(currentRound.shots * 0.45) : 28;
+    }
+    if (k === targetKey) {
+      return currentRound.shots > 0 ? Math.round(currentRound.shots * 0.25) : 18;
+    }
+    return currentRound.shots > 0 ? Math.max(2, Math.round(currentRound.shots * 0.1)) : 8;
+  });
+
   const chartOption = {
     backgroundColor: 'transparent',
     title: {
@@ -73,7 +125,7 @@ export const ControllerReplayView: React.FC<ControllerReplayViewProps> = ({ init
     tooltip: { trigger: 'axis' },
     xAxis: {
       type: 'category',
-      data: ['State 0x1', 'State 0x3', 'State 0x5 (Target)', 'State 0x7'],
+      data: categories,
       axisLabel: { color: isDark ? '#94a3b8' : '#64748b', fontSize: 10 },
       axisLine: { lineStyle: { color: isDark ? '#334155' : '#cbd5e1' } },
     },
@@ -86,16 +138,14 @@ export const ControllerReplayView: React.FC<ControllerReplayViewProps> = ({ init
     },
     series: [
       {
-        data: [
-          currentRound.round === 1 ? 16 : 8,
-          currentRound.round === 1 ? 16 : 10,
-          currentRound.round === 4 ? 42 : (currentRound.round === 2 ? 30 : 18),
-          currentRound.round === 3 ? 28 : 8,
-        ],
+        data: chartData,
         type: 'bar',
         itemStyle: {
           color: (params: any) => {
-            return params.dataIndex === 2 ? '#059669' : (isDark ? '#3b82f6' : '#2563eb');
+            const keyVal = candidateKeys[params.dataIndex];
+            if (keyVal === targetKey && currentRound.success) return '#059669';
+            if (keyVal === measuredKey) return '#d97706';
+            return isDark ? '#3b82f6' : '#2563eb';
           },
         },
       },
@@ -117,7 +167,15 @@ export const ControllerReplayView: React.FC<ControllerReplayViewProps> = ({ init
 
           <div className="flex items-center space-x-2">
             <button
-              onClick={() => setCurrentRoundIdx(0)}
+              onClick={handleLoadDemoTrace}
+              title="Reset to 4-Round Controller Demonstration Trace"
+              className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 text-xs flex items-center"
+            >
+              Demo Trace
+            </button>
+            <button
+              onClick={handleRestart}
+              title="Restart Replay from Round 1"
               className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800"
             >
               <RotateCcw className="w-4 h-4" />
@@ -130,7 +188,7 @@ export const ControllerReplayView: React.FC<ControllerReplayViewProps> = ({ init
               <SkipBack className="w-4 h-4" />
             </button>
             <button
-              onClick={() => setIsPlaying(!isPlaying)}
+              onClick={handlePlayToggle}
               className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs flex items-center"
             >
               {isPlaying ? <Pause className="w-3.5 h-3.5 mr-1" /> : <Play className="w-3.5 h-3.5 mr-1" />}
@@ -146,6 +204,20 @@ export const ControllerReplayView: React.FC<ControllerReplayViewProps> = ({ init
           </div>
         </div>
 
+        {logs.length <= 1 && (
+          <div className="mb-4 p-3 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 text-xs text-amber-800 dark:text-amber-300 flex flex-wrap items-center justify-between gap-2">
+            <span>
+              <strong>Note:</strong> Loaded simulation converged in 1 round (key verified immediately on round 1). Pressing Play stays on round 1.
+            </span>
+            <button
+              onClick={handleLoadDemoTrace}
+              className="px-2.5 py-1 rounded-md bg-amber-600 hover:bg-amber-700 text-white font-medium text-[11px]"
+            >
+              Load 4-Round Controller Trace
+            </button>
+          </div>
+        )}
+
         <div className="space-y-1 mb-6">
           <div className="flex justify-between text-xs font-mono text-slate-500">
             <span>Round {currentRoundIdx + 1} of {logs.length}</span>
@@ -154,10 +226,11 @@ export const ControllerReplayView: React.FC<ControllerReplayViewProps> = ({ init
           <input
             type="range"
             min={0}
-            max={logs.length - 1}
+            max={Math.max(1, logs.length - 1)}
             value={currentRoundIdx}
+            disabled={logs.length <= 1}
             onChange={(e) => setCurrentRoundIdx(parseInt(e.target.value))}
-            className="w-full accent-emerald-600 cursor-pointer"
+            className="w-full accent-emerald-600 cursor-pointer disabled:opacity-40"
           />
         </div>
 

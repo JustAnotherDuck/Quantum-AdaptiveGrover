@@ -111,48 +111,92 @@ export const ReadinessAnalyzerView: React.FC = () => {
         <div className="space-y-6">
           <div
             className={`p-5 rounded-xl border ${
-              data.circuit_survival_probability > 0.05
-                ? "bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-700 text-amber-900 dark:text-amber-200"
-                : "bg-red-50 dark:bg-red-950/40 border-red-300 dark:border-red-800 text-red-900 dark:text-red-200"
+              errorRate >= threshold
+                ? "bg-red-50 dark:bg-red-950/40 border-red-300 dark:border-red-800 text-red-900 dark:text-red-200"
+                : "bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-700 text-amber-900 dark:text-amber-200"
             }`}
           >
             <div className="flex items-start space-x-3">
               <AlertTriangle className="w-5 h-5 text-red-600 dark:text-red-400 mt-0.5 shrink-0" />
               <div>
                 <span className="font-bold text-sm block mb-1">
-                  NISQ Feasibility Assessment Verdict
+                  NISQ & Fault-Tolerant Feasibility Assessment Verdict
                 </span>
                 <p className="text-xs leading-relaxed">{data.nisq_feasibility_verdict}</p>
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
             <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
               <span className="text-[11px] text-slate-500 block mb-1">Ideal Grover Iterations</span>
-              <span className="text-lg font-bold font-mono text-slate-900 dark:text-slate-100">
+              <span className="text-base font-bold font-mono text-slate-900 dark:text-slate-100">
                 {data.ideal_grover_iterations}
               </span>
+              <span className="text-[10px] text-slate-400 block mt-1">Key space N = 2^{data.key_size}</span>
             </div>
 
             <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
               <span className="text-[11px] text-slate-500 block mb-1">Logical Qubits Needed</span>
-              <span className="text-lg font-bold font-mono text-slate-900 dark:text-slate-100">
+              <span className="text-base font-bold font-mono text-slate-900 dark:text-slate-100">
                 {data.logical_qubits_required.toLocaleString()}
               </span>
-            </div>
-
-            <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
-              <span className="text-[11px] text-slate-500 block mb-1">NISQ Circuit Survival</span>
-              <span className="text-lg font-bold font-mono text-red-600 dark:text-red-400">
-                {data.circuit_survival_probability === 0 ? "0.00e+00" : data.circuit_survival_probability.toExponential(2)}
+              <span className="text-[10px] text-slate-400 block mt-1 truncate" title={data.literature_source}>
+                {data.literature_source.split(" ")[0]} et al.
               </span>
             </div>
 
             <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
-              <span className="text-[11px] text-slate-500 block mb-1">Reference Citation</span>
-              <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 block truncate">
-                {data.literature_source}
+              <span className="text-[11px] text-slate-500 block mb-1">Code Distance (d)</span>
+              <span className="text-base font-bold font-mono text-slate-900 dark:text-slate-100">
+                {data.code_distance && data.code_distance > 0 ? `d = ${data.code_distance}` : "Exceeded"}
+              </span>
+              <span className="text-[10px] text-slate-400 block mt-1">
+                {data.code_distance && data.code_distance > 0
+                  ? `${2 * data.code_distance * data.code_distance} phys/log`
+                  : "p ≥ p_th (diverges)"}
+              </span>
+            </div>
+
+            <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
+              <span className="text-[11px] text-slate-500 block mb-1">Physical Qubits (FTQC)</span>
+              <span className="text-base font-bold font-mono text-emerald-600 dark:text-emerald-400">
+                {data.physical_qubits_required && data.physical_qubits_required > 0
+                  ? `${(data.physical_qubits_required / 1e6).toFixed(2)}M`
+                  : "Unachievable"}
+              </span>
+              <span className="text-[10px] text-slate-400 block mt-1">
+                {data.physical_qubits_required && data.physical_qubits_required > 0
+                  ? `${data.physical_qubits_required.toLocaleString()} total`
+                  : "Above threshold"}
+              </span>
+            </div>
+
+            <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
+              <span className="text-[11px] text-slate-500 block mb-1">Single-Round NISQ Fidelity</span>
+              <span className="text-base font-bold font-mono text-amber-600 dark:text-amber-400">
+                {data.single_round_survival && data.single_round_survival > 0
+                  ? data.single_round_survival >= 0.001
+                    ? `${(data.single_round_survival * 100).toFixed(2)}%`
+                    : data.single_round_survival.toExponential(2)
+                  : "0.00e+00"}
+              </span>
+              <span className="text-[10px] text-slate-400 block mt-1">
+                {data.key_size >= 128 ? "1 round (54.4k gates)" : "1 round (750 gates)"}
+              </span>
+            </div>
+
+            <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
+              <span className="text-[11px] text-slate-500 block mb-1">Full Circuit NISQ Survival</span>
+              <span className="text-base font-bold font-mono text-red-600 dark:text-red-400">
+                {data.circuit_survival_probability === 0
+                  ? "0.00e+00"
+                  : data.circuit_survival_probability >= 0.01
+                  ? `${(data.circuit_survival_probability * 100).toFixed(2)}%`
+                  : data.circuit_survival_probability.toExponential(2)}
+              </span>
+              <span className="text-[10px] text-slate-400 block mt-1">
+                {data.key_size >= 128 ? "Full key search (~10²³ gates)" : "Full S-AES search"}
               </span>
             </div>
           </div>
@@ -160,16 +204,26 @@ export const ReadinessAnalyzerView: React.FC = () => {
           <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs text-xs space-y-3">
             <div className="flex items-center space-x-2 font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
               <BookOpen className="w-4 h-4 text-purple-600" />
-              <span>Grounded Peer-Reviewed Literature Evidence</span>
+              <span>Grounded Peer-Reviewed Literature Evidence & Dynamic Physical Scaling</span>
             </div>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
               Comprehensive quantum resource estimates published by Grassl et al. (PQCrypto 2016) and Jaques et al. (EUROCRYPT 2020)
               establish that full AES exhaustive key search requires sequential quantum circuits with T-depth exceeding 120 layers per round
               over 2<sup>64</sup> iterations.
             </p>
-            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 font-mono text-[11px] text-slate-700 dark:text-slate-300">
-              Total Circuit Operations = ~1.18 &times; 10<sup>19</sup> iterations &times; 54,400 T-gates &asymp; 6.4 &times; 10<sup>23</sup> gates.
-              At physical gate error &epsilon; = 0.1%, fidelity collapses to (1 - 10<sup>-3</sup>)<sup>10<sup>23</sup></sup> &equiv; 0.00.
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 font-mono text-[11px] text-slate-700 dark:text-slate-300 space-y-1">
+              <div>
+                <strong>Active Hardware Regime:</strong> Physical gate error &epsilon; = {(errorRate * 100).toFixed(2)}% | Surface code threshold p<sub>th</sub> = {(threshold * 100).toFixed(1)}% | Margin: {((threshold - errorRate) * 100).toFixed(2)}%
+              </div>
+              <div>
+                &bull; <strong>NISQ Single-Round Survival:</strong> {data.single_round_survival && data.single_round_survival > 0 ? (data.single_round_survival >= 0.001 ? `${(data.single_round_survival * 100).toFixed(2)}%` : data.single_round_survival.toExponential(2)) : "0.00e+00"} (Fidelity collapses exponentially before 1 Grover step completes).
+              </div>
+              <div>
+                &bull; <strong>NISQ Full-Circuit Survival:</strong> (1 - {(errorRate * 100).toFixed(2)}%)<sup>{data.key_size >= 128 ? "6.4×10²³" : "4,200"}</sup> &equiv; {data.circuit_survival_probability === 0 ? "0.00e+00" : data.circuit_survival_probability.toExponential(2)}.
+              </div>
+              <div>
+                &bull; <strong>FTQC Surface Code Scaling:</strong> {data.code_distance && data.code_distance > 0 ? `Code distance d = ${data.code_distance} achieves P_L < 10⁻²⁴, requiring ${data.physical_qubits_required?.toLocaleString()} physical qubits.` : "Physical error rate exceeds threshold; error correction cannot converge."}
+              </div>
             </div>
           </div>
         </div>

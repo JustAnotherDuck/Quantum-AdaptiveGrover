@@ -23,7 +23,7 @@ from agqca.api.schemas import (
     SimulateRequest,
 )
 from agqca.assistant.provider import MANDATORY_DISCLAIMER, ResearchAssistantProvider
-from agqca.filtering.constraints import Constraint, PrefixConstraint
+from agqca.filtering.constraints import CandidateFilter, Constraint, PrefixConstraint
 from agqca.metrics.tracker import CircuitResourceTracker
 from agqca.oracles.grover import build_grover_circuit, optimal_grover_iterations
 from agqca.oracles.mode_a import MarkedStateOracle
@@ -176,6 +176,8 @@ def run_simulation(req: SimulateRequest) -> ExecutionRecordResponse:
         target_key = rng.randint(0, (1 << req.key_size) - 1)
 
     constraints: List[Constraint] = []
+    filtered_candidates: Optional[List[int]] = None
+    filter_cost: int = 0
     if req.prefix_bits > 0:
         shift = req.key_size - req.prefix_bits
         pref_val = (target_key >> shift) & ((1 << req.prefix_bits) - 1)
@@ -184,6 +186,14 @@ def run_simulation(req: SimulateRequest) -> ExecutionRecordResponse:
                 key_size=req.key_size, prefix_bits=req.prefix_bits, prefix_val=pref_val
             )
         )
+        filter_engine = CandidateFilter(
+            key_size=req.key_size,
+            constraints=constraints,
+            allow_fallback=True,
+        )
+        filter_res = filter_engine.filter_space(true_key=target_key)
+        filtered_candidates = filter_res.candidates
+        filter_cost = filter_res.classical_cost
 
     def verify_candidate(k: int, tk: int = target_key) -> bool:
         return k == tk
@@ -202,7 +212,10 @@ def run_simulation(req: SimulateRequest) -> ExecutionRecordResponse:
 
     strat: BaseStrategy
     if req.strategy_name == "Classical Brute Force":
-        strat = ClassicalBruteForceStrategy()
+        strat = ClassicalBruteForceStrategy(
+            candidates=filtered_candidates,
+            classical_filter_cost=filter_cost,
+        )
     elif req.strategy_name == "Random Guess (Null Control)":
         strat = RandomGuessNullControlStrategy()
     elif req.strategy_name == "Standard Grover":
@@ -380,6 +393,10 @@ def evaluate_readiness(req: ReadinessRequest) -> ReadinessResponse:
         nisq_feasibility_verdict=rep.nisq_feasibility_verdict,
         literature_source=rep.literature_source,
         safety_disclaimer=rep.disclaimer,
+        code_distance=rep.code_distance,
+        physical_qubits_required=rep.physical_qubits_required,
+        single_round_survival=rep.single_round_survival,
+        threshold_margin=rep.threshold_margin,
     )
 
 

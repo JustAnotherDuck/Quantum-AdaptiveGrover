@@ -160,6 +160,10 @@ class CipherReadinessReport:
     circuit_survival_probability: float
     nisq_feasibility_verdict: str
     literature_source: str
+    code_distance: int = 0
+    physical_qubits_required: int = 0
+    single_round_survival: float = 0.0
+    threshold_margin: float = 0.0
     disclaimer: str = SAFETY_DISCLAIMER
 
 
@@ -179,10 +183,6 @@ def evaluate_cipher_readiness(
         two_q = 54400 * 11800000000000000000
         total_g = 120000 * 11800000000000000000
         survival = 0.0
-        verdict = (
-            "Infeasible on NISQ: Depth (~10^21) and logical qubit requirement (1,785-2,953) "
-            "exceed NISQ limits by over 18 orders of magnitude. Requires fault-tolerant quantum computing."
-        )
         source = "Jaques et al. (EUROCRYPT 2020) & Grassl et al. (PQCrypto 2016)"
     elif "AES-192" in name_upper:
         key_size = 192
@@ -193,10 +193,6 @@ def evaluate_cipher_readiness(
         two_q = 1428480 * 18900000000000000000000000000
         total_g = 2000000 * 18900000000000000000000000000
         survival = 0.0
-        verdict = (
-            "Infeasible on NISQ: Depth (~10^31) and logical qubit requirement (4,449) "
-            "far exceed any near-term quantum system. Requires fault-tolerant quantum computing."
-        )
         source = "Grassl et al. (PQCrypto 2016)"
     elif "AES-256" in name_upper:
         key_size = 256
@@ -207,10 +203,6 @@ def evaluate_cipher_readiness(
         two_q = 1666560 * 2420000000000000000000000000000000000000
         total_g = 3000000 * 2420000000000000000000000000000000000000
         survival = 0.0
-        verdict = (
-            "Infeasible on NISQ: Depth (~10^41) and logical qubit requirement (6,681) "
-            "far exceed physical coherence limits. Requires fault-tolerant quantum computing."
-        )
         source = "Grassl et al. (PQCrypto 2016)"
     elif "S-AES" in name_upper:
         key_size = 16
@@ -221,7 +213,6 @@ def evaluate_cipher_readiness(
         two_q = 1500
         total_g = 4200
         survival = float(max(0.0, (1.0 - physical_gate_error) ** min(depth, 50000)))
-        verdict = "Feasible in Simulation / Scaled NISQ Benchmark: Infeasible on NISQ without error mitigation due to depth."
         source = "Feldhofer et al. (Reduced S-AES Benchmark)"
     else:
         key_size = 16
@@ -232,10 +223,53 @@ def evaluate_cipher_readiness(
         two_q = 400
         total_g = 1200
         survival = float(max(0.0, (1.0 - physical_gate_error) ** min(depth, 50000)))
-        verdict = (
-            "Feasible in Simulation / Scaled NISQ Benchmark: Infeasible on NISQ for long depths."
-        )
         source = "Heys (1996) / AGQCA Benchmark Suite"
+
+    # Surface Code Fault-Tolerant Quantum Computing (FTQC) model (Fowler et al. 2012)
+    threshold_margin = float(surface_code_threshold - physical_gate_error)
+    if key_size >= 128:
+        single_round_gates = 54400
+        if physical_gate_error * single_round_gates > 600:
+            single_round_survival = 0.0
+        else:
+            single_round_survival = float((1.0 - physical_gate_error) ** single_round_gates)
+
+        if physical_gate_error < surface_code_threshold and physical_gate_error > 0:
+            ratio = surface_code_threshold / physical_gate_error
+            log_ops = 54.8 if key_size == 128 else (79.6 if key_size == 192 else 103.6)
+            req_half_d = math.ceil(log_ops / math.log(max(1.0001, ratio)))
+            code_distance = 2 * max(3, req_half_d) - 1
+            physical_qubits = logical_qubits * 2 * (code_distance**2)
+            verdict = (
+                f"Infeasible on NISQ: Circuit survival is 0.00. Fault-tolerant execution requires "
+                f"surface code distance d={code_distance} and ~{physical_qubits / 1e6:.1f}M physical qubits."
+            )
+        else:
+            code_distance = 0
+            physical_qubits = 0
+            verdict = (
+                f"Infeasible on NISQ & Above Threshold: Physical gate error ({physical_gate_error:.2%}) "
+                f"exceeds surface code threshold ({surface_code_threshold:.1%}). Error suppression fails."
+            )
+    else:
+        single_round_gates = 750
+        single_round_survival = float((1.0 - physical_gate_error) ** single_round_gates)
+        if physical_gate_error < surface_code_threshold and physical_gate_error > 0:
+            ratio = surface_code_threshold / physical_gate_error
+            req_half_d = math.ceil(10.0 / math.log(max(1.0001, ratio)))
+            code_distance = 2 * max(2, req_half_d) - 1
+            physical_qubits = logical_qubits * 2 * (code_distance**2)
+            verdict = (
+                f"Feasible in Simulation / Scaled Benchmark: Single-round fidelity is {single_round_survival:.1%}. "
+                f"FTQC requires distance d={code_distance} ({physical_qubits:,} physical qubits)."
+            )
+        else:
+            code_distance = 0
+            physical_qubits = 0
+            verdict = (
+                f"Feasible in Simulation: Infeasible on NISQ. Error rate ({physical_gate_error:.2%}) "
+                f"exceeds threshold ({surface_code_threshold:.1%})."
+            )
 
     return CipherReadinessReport(
         cipher_name=cipher_name,
@@ -250,5 +284,9 @@ def evaluate_cipher_readiness(
         circuit_survival_probability=survival,
         nisq_feasibility_verdict=verdict,
         literature_source=source,
+        code_distance=code_distance,
+        physical_qubits_required=physical_qubits,
+        single_round_survival=single_round_survival,
+        threshold_margin=threshold_margin,
         disclaimer=SAFETY_DISCLAIMER,
     )

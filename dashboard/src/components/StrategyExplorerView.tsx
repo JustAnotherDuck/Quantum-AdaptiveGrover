@@ -4,9 +4,13 @@ import { Play, CheckCircle, XCircle, RefreshCw } from 'lucide-react';
 
 interface StrategyExplorerViewProps {
   onLoadReplayData?: (record: ExecutionRecord) => void;
+  onNavigate?: (view: any) => void;
 }
 
-export const StrategyExplorerView: React.FC<StrategyExplorerViewProps> = ({ onLoadReplayData }) => {
+export const StrategyExplorerView: React.FC<StrategyExplorerViewProps> = ({
+  onLoadReplayData,
+  onNavigate,
+}) => {
   const [strategy, setStrategy] = useState<string>("Adaptive Hybrid (Proposed)");
   const [keySize, setKeySize] = useState<number>(4);
   const [noiseLevel, setNoiseLevel] = useState<number>(0.02);
@@ -58,6 +62,7 @@ export const StrategyExplorerView: React.FC<StrategyExplorerViewProps> = ({ onLo
         found_key: data.found_key !== undefined ? data.found_key : null,
         is_verified: Boolean(data.is_verified),
         total_oracle_calls: data.total_oracle_calls ?? data.oracle_calls ?? 0,
+        classical_filter_cost: data.classical_filter_cost ?? 0,
         classical_verification_calls:
           data.classical_verification_calls ?? data.classical_verify_cost ?? 0,
         total_effective_cost: data.total_effective_cost ?? 0,
@@ -172,7 +177,9 @@ export const StrategyExplorerView: React.FC<StrategyExplorerViewProps> = ({ onLo
           <div>
             <div className="flex justify-between text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
               <span>Classical Prefix Bits: {prefixBits} bits</span>
-              <span className="text-slate-400">Pruning: {1 << prefixBits}x</span>
+              <span className="text-slate-400">
+                Pruning: {1 << prefixBits}x (N' = {1 << (keySize - prefixBits)})
+              </span>
             </div>
             <input
               type="range"
@@ -183,7 +190,12 @@ export const StrategyExplorerView: React.FC<StrategyExplorerViewProps> = ({ onLo
               className="w-full accent-emerald-600 cursor-pointer"
             />
             <p className="text-[11px] text-slate-500 mt-1">
-              Simulates classical cryptanalytic side-channel or differential filter.
+              Pruning reduces search space from {1 << keySize} to {1 << (keySize - prefixBits)} candidates.
+              {keySize <= 5 && prefixBits > 0 && (
+                <span className="text-amber-600 dark:text-amber-400 block mt-0.5">
+                  Note: On small n &le; 5, Grover iteration count is already at the integer floor k=1. Select n &ge; 7 to see Grover iterations drop from k=12 to k=3.
+                </span>
+              )}
             </p>
           </div>
 
@@ -268,9 +280,16 @@ export const StrategyExplorerView: React.FC<StrategyExplorerViewProps> = ({ onLo
             </div>
 
             <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
-              <span className="text-[11px] text-slate-500 block mb-1">Oracle Calls</span>
+              <span className="text-[11px] text-slate-500 block mb-1">Oracle Calls (Quantum)</span>
               <span className="text-sm font-bold font-mono">
                 {(result.total_oracle_calls ?? result.oracle_calls ?? 0).toLocaleString()}
+              </span>
+            </div>
+
+            <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
+              <span className="text-[11px] text-slate-500 block mb-1">Classical Filter Cost</span>
+              <span className="text-sm font-bold font-mono">
+                {(result.classical_filter_cost ?? 0).toLocaleString()}
               </span>
             </div>
 
@@ -289,18 +308,33 @@ export const StrategyExplorerView: React.FC<StrategyExplorerViewProps> = ({ onLo
             </div>
 
             <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
-              <span className="text-[11px] text-slate-500 block mb-1">Rounds Executed</span>
-              <span className="text-sm font-bold font-mono">
-                {result.rounds_executed ?? 1}
-              </span>
-            </div>
-
-            <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
               <span className="text-[11px] text-slate-500 block mb-1">Elapsed Time</span>
               <span className="text-sm font-bold font-mono">
                 {(((result.wall_clock_seconds ?? result.wall_clock_time ?? 0)) * 1000).toFixed(1)} ms
               </span>
             </div>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800/60 text-xs text-slate-700 dark:text-slate-300 flex flex-wrap items-center justify-between gap-3">
+            <div className="space-y-0.5">
+              <div className="font-semibold text-emerald-800 dark:text-emerald-300">
+                Honest Comprehensive Cost Decomposition:
+              </div>
+              <div className="font-mono text-[11px] text-slate-600 dark:text-slate-400">
+                Total Cost {Math.round(result.total_effective_cost ?? 0)} = Filtering Cost ({result.classical_filter_cost ?? 0}) + Oracle Calls ({(result.total_oracle_calls ?? result.oracle_calls ?? 0)}) + Classical Checks ({result.classical_verification_calls ?? result.classical_verify_cost ?? 0})
+              </div>
+            </div>
+            {onNavigate && (
+              <button
+                onClick={() => {
+                  if (onLoadReplayData) onLoadReplayData(result);
+                  onNavigate('replay');
+                }}
+                className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs flex items-center transition-colors"
+              >
+                Inspect in Controller Replay &rarr;
+              </button>
+            )}
           </div>
 
           <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs">

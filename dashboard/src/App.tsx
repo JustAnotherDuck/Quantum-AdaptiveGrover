@@ -101,7 +101,10 @@ export const App: React.FC = () => {
         <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {currentView === 'overview' && <OverviewView onNavigate={setCurrentView} />}
           {currentView === 'explorer' && (
-            <StrategyExplorerView onLoadReplayData={handleLoadReplayData} />
+            <StrategyExplorerView
+              onLoadReplayData={handleLoadReplayData}
+              onNavigate={setCurrentView}
+            />
           )}
           {currentView === 'replay' && (
             <ControllerReplayView initialRecord={replayRecord} isDark={isDark} />

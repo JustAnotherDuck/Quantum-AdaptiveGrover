@@ -92,6 +92,10 @@ class ReadinessResponse(BaseModel):
     nisq_feasibility_verdict: str
     literature_source: str
     safety_disclaimer: str
+    code_distance: int = 0
+    physical_qubits_required: int = 0
+    single_round_survival: float = 0.0
+    threshold_margin: float = 0.0
 
 
 class AssistantChatRequest(BaseModel):

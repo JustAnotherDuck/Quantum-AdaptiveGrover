@@ -36,6 +36,7 @@ export interface ExecutionRecord {
   round_logs: RoundLog[];
   per_attempt_success?: boolean;
   oracle_calls?: number;
+  classical_filter_cost?: number;
   classical_verify_cost?: number;
   wall_clock_time?: number;
   iterations?: number;
@@ -63,6 +64,10 @@ export interface ReadinessData {
   nisq_feasibility_verdict: string;
   literature_source: string;
   safety_disclaimer: string;
+  code_distance?: number;
+  physical_qubits_required?: number;
+  single_round_survival?: number;
+  threshold_margin?: number;
 }
 
 export interface CircuitData {
